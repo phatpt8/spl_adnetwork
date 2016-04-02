@@ -1,0 +1,83 @@
+<div class="filter-box">
+    <div class="row" style="margin-left: -15px !important;">
+
+        <div class="col-sm-3">
+            <input name="qs_keyword" id="qs_keyword" value="" class="form-control" type="text" placeholder="Name, Email, ID">
+
+        </div>
+        <br class="hidden-sm hidden-md hidden-lg">
+
+        <div class="col-sm-2">
+            <select id="qs_status" class="form-control" name="qs_status">
+                <option value="0">All status</option>
+                <option value="1">Active</option>
+                <option value="2">Inactive</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <select class="form-control" name="qs_group" id="qs_group">
+                <option value="0">Tất cả</option>
+                <option value="1">Advertiser</option>
+                <option value="2">Publisher</option>
+                <option value="3"> Adv &amp; Pub</option>
+                <option value="4"> Admin</option>
+            </select>
+        </div>
+        <div class="col-sm-1">
+            <button class="btn btn-default fa fa-search" id="btn_qs_user" type="button">Search</button>
+        </div>
+
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Balance</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($this->userData as $key => $user) { ?>
+           <tr>
+               <td> <?php echo $user["UserId"]; ?></td>
+               <td>
+                   <?php echo $user["UserName"]; ?>
+                    <div class="txt_email">
+                        <?php echo $user["UserEmail"]; ?>
+                    </div>
+               </td>
+               <td> <?php echo $user["UserPhone"]; ?> </td>
+               <td> <?php echo $user["UserBalance"]; ?> </td>
+               <td>
+                   <?php if ($user["UserRole"] == 1) { ?>
+                       <span class="label label-default">Admin</span>
+                   <?php } elseif ($user["UserRole"] == 2) { ?>
+                       <span class="label label-default">Publisher</span>
+                   <?php } elseif ($user["UserRole"] == 3) { ?>
+                       <span class="label label-default">Advertiser</span>
+                   <?php } ?>
+               </td>
+               <td class="text-center">
+                   <?php if ($user["UserStatus"] == 1) { ?>
+                       <span class="label label-primary">Active</span>
+                   <?php } else { ?>
+                       <span class="label label-default">Inactive</span>
+                   <?php } ?>
+               </td>
+               <td>
+                   <a href="#">SetActive</a>
+                   |
+                   <a href="#">SetAdmin</a>
+               </td>
+
+           </tr>
+    <?php } ?>
+
+    </tbody>
+</table>

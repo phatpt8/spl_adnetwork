@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/mycustom.js"></script>
+    <link href="<?php echo STATIC_URL; ?>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/mycustom.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="wrapper">
+    <div class="col-md-3 left_col">
+        <div class="left_col scroll-view" tabindex="5000" style="overflow: hidden; outline: none; cursor: -webkit-grab;">
+
+            <div class="navbar nav_title" style="border: 0;">
+                <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span> Admin Dashboard Logo </span></a>
+            </div>
+            <div class="clearfix"></div>
+
+            <!-- menu prile quick info -->
+            <div class="profile">
+                <div class="profile_info">
+                    <span>Welcome,</span>
+                    <h2> Publisher name</h2> <a href="<?php echo SITE_URL .'/auth/logout'?>"> Log out</a>
+                </div>
+            </div>
+            <!-- /menu prile quick info -->
+
+            <br>
+
+            <div class="row">
+                <div class="sidebar">
+                    <div class="mini-submenu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </div>
+                    <div class="list-group">
+        <span class="list-group-item active">
+
+            <span class="pull-right" id="slide-submenu">
+                <i class="fa fa-times"></i>
+            </span>
+        </span>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-comment-o"></i> Thong Ke
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-search"></i> Quan ly quang cao
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-user"></i> Thong tin tai khoan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-wrapper" class="gray-bg">
+
+        <!--        --><?php //echo $this->render('/partials/nav_header.phtml'); ?>
+
+        <div class="wrapper wrapper-content">
+
+            <?php echo $this->layout()->content; ?>
+
+        </div>
+
+        <?php echo $this->render('/partials/footer.phtml'); ?>
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    var SITE_URL = "<?php echo SITE_URL;?>";
+    var STATIC_URL = "<?php echo STATIC_URL;?>";
+</script>
+<?php echo $this->headScript(); ?>
+
+</body>
+</html>

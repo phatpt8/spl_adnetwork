@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="<?php echo STATIC_URL; ?>/images/favicon.ico" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+    <?php
+    echo $this->headTitle();
+    echo $this->headLink();
+    echo $this->headMeta();
+    ?>
+
+</head>
+<body>
+<div class="Wrapcontainer">
+    <!--Wrap Top-->
+    <div class="wrap-top width_common">
+        <div class="container container_top">
+            <div class="right_top">
+                <ul>
+<!--                    <li><a target="_blank" href="https://www.youtube.com/channel/UCUPMBIp-lb0Cqm6UBIpisPg" class="social_ico social_youtube"></a></li>-->
+<!--                    <li><a target="_blank" href="https://www.facebook.com/eClickAds" class="social_ico social_facebook"></a></li>-->
+<!--                    <li><a target="_blank" href="https://plus.google.com/u/2/b/111937888998223119809/dashboard/overview" class="social_ico social_google"></a></li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--End Wrap Top-->
+    <!--wrap_logomenu Top-->
+    <div class="wrap_menu width_common">
+        <div class="container container_top">
+            <div class="navigation">
+                <div class="btn-toggle-nav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul>
+
+                </ul>
+            </div>
+            <a href="<?php echo SITE_URL; ?>" class="logo subNavBtn extLink"><img src="<?php echo STATIC_URL; ?>/images/logo.png" alt="" title="" /></a>
+
+
+        </div>
+    </div>
+    <!--End wrap_logomenu Top-->
+
+    <!--Wrap Content INDEX-->
+    <div class="wrap-content width_common">
+        <?php echo $this->layout()->content; ?>
+    </div>
+    <!--End Wrap Content INDEX-->
+
+    <!--Wrap Footer-->
+    <div class="wrap-footer width_common">
+        <div class="container container_footer">
+            <div class="right_top social_footer">
+                <ul>
+<!--                    <li><a target="_blank" href="https://www.youtube.com/channel/UCUPMBIp-lb0Cqm6UBIpisPg" class="social_ico social_youtube"></a></li>-->
+<!--                    <li><a target="_blank" href="https://www.facebook.com/eClickAds" class="social_ico social_facebook"></a></li>-->
+<!--                    <li><a target="_blank" href="https://plus.google.com/u/2/b/111937888998223119809/dashboard/overview" class="social_ico social_google"></a></li>-->
+                </ul>
+            </div>
+            <p><span>Copyright © 2015 eClick. All rights reserved. Powered by &nbsp;&nbsp;</span><img src="<?php echo STATIC_URL; ?>/images/logo_footer.png" alt="" /></p>
+        </div>
+    </div>
+    <!--End Wrap Footer-->
+    <div class="block_close_menu"></div>
+
+</div>
+</body>
+</html>
