@@ -1,48 +1,29 @@
+<div class="container">
+    <form action="<?php echo SITE_URL . '/user/verify'?>" method="POST" id="form_login" autocomplete="off" novalidate="novalidate" class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label class="sr-only" for="inputEmail">Email address</label>
+        <input type="email" autofocus="" required="" placeholder="Email address" class="form-control" name="email" id="email">
+        <label class="sr-only" for="inputPassword">Password</label>
+        <input type="password" required="" placeholder="Password" class="form-control" name="password" id="password">
+<!--        <div class="checkbox">-->
+<!--            <label>-->
+<!--                <input type="checkbox" name="autologin" id="autologin"><label for="autologin">Remember me</label>-->
+<!--            </label>-->
+<!--        </div>-->
+        <p class="forget_pass_pop">Forgot password?
+            <a href="<?php echo SITE_URL . '/user/forgotpass'?>">Change password</a></p>
+        <p class="forget_pass_pop">Don't have account?
+            <a href="<?php echo SITE_URL . '/user/register'?>" class="form_btn_pop dk_btn_pop" id="popup_dangky">Register account</a></p>
 
-<div style="width: 500px;margin: 0 auto;">
-    <h1> Welcome to login page</h1>
-    <form action="<?php echo SITE_URL . '/user/verify'?>" method="post" id="form_login" autocomplete="off" novalidate="novalidate">
-        <div class="form_log_pop">
-            <div class="inner_form_pop">
-                <p class="tit_form_pop">Bạn đã có tài khoản</p>
-
-                <p class="tit_form_bold">Vui lòng đăng nhập</p>
-
-                <p class="tit_input">
-                    <label id="login_validate" class="error validate_txt_pop" for="login_validate"></label></p>
-                <ul>
-                    <li>
-                        <p class="tit_input"><label for="login_email" class="txt_label">Email đăng nhập</label>
-                            <label id="login_email-error" class="error validate_txt_pop" for="login_email"></label></p>
-                        <input type="text" class="input_login" id="login_email" name="login_email" value="">
-                    </li>
-                    <li>
-                        <p class="tit_input"><label for="login_password" class="txt_label">Mật khẩu</label>
-                            <label id="login_password-error" class="error validate_txt_pop" for="login_password"></label>
-                        </p>
-                        <input type="password" class="input_login" id="login_password" name="login_password" value="">
-                    </li>
-                </ul>
-                <ul class="radio_checkbox_pop">
-                    <li>
-                        <input type="checkbox" name="autologin" id="autologin" value="1"><label for="autologin">Duy trì đăng nhập</label>
-                    </li>
-                </ul>
-                <p class="forget_pass_pop">Quên mật khẩu?
-                    <a href="https://iad.eclick.vn/user/forgotpass">Vui lòng nhấn vào đây</a></p>
-                <p class="forget_pass_pop">Bạn chưa có tài khoản?
-                    <a href="javascript:;" class="form_btn_pop dk_btn_pop" id="popup_dangky">Đăng ký</a></p>
-
-                <ul class="radio_checkbox_pop">
-                    <li>
-                        <input type="radio" name="choice" id="choice1" value="1" checked="checked"><label for="choice1">Nhà quảng cáo</label>
-                    </li>
-                    <li>
-                        <input type="radio" name="choice" id="choise2" value="2"><label for="choice2">Publisher</label>
-                    </li>
-                </ul>
-                <button type="submit" id="click_login" class="form_btn_pop dn_btn_pop">Đăng nhập</button>
-            </div>
-        </div>
+<!--        <p class="forget_pass_pop">Login as</p>-->
+<!--        <ul class="radio_checkbox_pop">-->
+<!--            <li>-->
+<!--                <input type="radio" name="choice" id="choice1" value="1" checked="checked"><label for="choice1">Nhà quảng cáo</label>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <input type="radio" name="choice" id="choice2" value="2"><label for="choice2">Publisher</label>-->
+<!--            </li>-->
+<!--        </ul>-->
+        <button type="submit" class="btn btn-lg btn-primary btn-block" style="height: 36px;">Sign in</button>
     </form>
 </div>

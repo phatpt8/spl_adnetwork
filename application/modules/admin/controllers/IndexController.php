@@ -13,6 +13,8 @@ class Admin_IndexController extends Zend_Controller_Action{
 
         if ($ss != "logged" && $role != 1) {
             $this->redirect(SITE_URL . '/auth/login');
+        } else {
+            $this->view->fullname = $defaultNamespace->activeUser['fullname'];
         }
 
     }
