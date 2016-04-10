@@ -83,17 +83,36 @@ class Admin_Business_User {
         return $arrResult;
     }
 
+    public static function checkEmail($strUserEmail)
+    {
+        $arrResult = array();
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('SELECT UserEmail FROM user WHERE UserEmail=?', array($strUserEmail));
+            $stmt->execute();
+            $arrResult = $stmt->fetchAll();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $arrResult;
+    }
+
     public static function setNewUser($strUserName, $strUserEmail, $strUserPhone, $strUserPassword, $intUserRole)
     {
+        $intUserId = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
             $stmt = $storage->query('INSERT INTO user (UserName, UserEmail, UserPhone, UserPassword, UserRole) VALUES(?,?,?,?,?)', array($strUserName, $strUserEmail, $strUserPhone, $strUserPassword, $intUserRole));
             $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
+            $intUserId = $storage->lastInsertId();
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
+        return $intUserId;
     }
 
     public static function updateUserInfo($intUserId, $strUserName, $strUserEmail, $strUserPhone)

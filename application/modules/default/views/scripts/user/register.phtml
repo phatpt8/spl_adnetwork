@@ -1,0 +1,62 @@
+<div class="wrap-form register-form">
+    <form action="" method="POST" role="form" autocomplete="off" id="form-register">
+        <legend>
+            Đăng ký
+<!--            <ul class="list-inline social">-->
+<!--                <li><a href="https://www.facebook.com/dialog/oauth?client_id=544591579004088&redirect_uri=--><?php //echo SITE_URL; ?><!--/user/facebook"><img src="--><?php //echo STATIC_URL; ?><!--/images/default/icon-facebook.png" alt=""></a></li>-->
+<!--                <li><a href="https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=--><?php //echo SITE_URL; ?><!--/user/google&client_id=636493577740-5qgto6n8kkih4ju088vsc5verq0936j9.apps.googleusercontent.com&scope=openid%20email"><img src="--><?php //echo STATIC_URL; ?><!--/images/default/icon-gplus.png" alt=""></a></li>-->
+<!--                <li><a href="#"><img src="--><?php //echo STATIC_URL; ?><!--/images/default/icon-yahoo.png" alt=""></a></li>-->
+<!--            </ul>-->
+<!--            <div class="clearfix"></div>-->
+        </legend>
+        <?php if (isset($this->error) && !empty($this->error)) { ?>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class='error'><?php echo $this->error; ?></div>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="form-group">
+            <div class="input-group">
+                <input value="<?php echo isset($this->params['fullname'])?$this->params['fullname']:'';?>" type="text" class="form-control" id="fullname" name="fullname" placeholder="Fullname">
+                <span class="input-group-addon"><i class="icon-user"></i></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="validate-content-insert-after">
+                <div class="input-group">
+                    <input value="<?php echo isset($this->params['email'])?$this->params['email']:'';?>" type="text" class="form-control" id="email" name="email" placeholder="Email">
+                    <span class="input-group-addon"><i class="icon-mail-alt"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                    <input value="<?php echo isset($this->params['phone'])?$this->params['phone']:'';?>" type="text" class="form-control" id="phone" name="phone" placeholder="Phonenumber">
+                <span class="input-group-addon"><i class="icon-user"></i></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Mật khẩu">
+                <span class="input-group-addon"><i class="icon-key"></i></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <input type="password" class="form-control" id="replypassword" name="replypassword"
+                       placeholder="Nhập lại mật khẩu">
+                <span class="input-group-addon"><i class="icon-key"></i></span>
+            </div>
+        </div>
+        <hr>
+        <button type="submit" id="submit" class="btn btn-primary btnDangky">Đăng ký</button>
+    </form>
+</div>
+<?php
+$this->headLink()->appendStylesheet(STATIC_URL . '/css/front-end.css');
+$this->headLink()->appendStylesheet(STATIC_URL . '/css/datepicker.css');
+//$this->headScript()->appendFile(STATIC_URL . '/js/library/datepicker'.EXT_JS.'.js', 'text/javascript')
+//    ->appendFile(STATIC_URL . '/js/library/jquery.number'.EXT_JS.'.js', 'text/javascript')
+//    ->appendFile(STATIC_URL . '/js/default/user/register'.EXT_JS.'.js', 'text/javascript');
+//?>

@@ -62,6 +62,26 @@ class UserController extends Zend_Controller_Action{
     }
 
     public function registerAction() {
+        $this->_helper->layout->setLayout('login');
+//        $this->_helper->layout->disableLayout();
+//        $this->_helper->viewRenderer->setNoRender();
+        if ($this->_request->isPost()) {
+            $name = trim(strip_tags($this->_request->getParam('fullname', null)));
+            $email = trim(strip_tags($this->_request->getParam('email', null)));
+            $phone = trim(strip_tags($this->_request->getParam('phone', null)));
+            $pass = trim(strip_tags($this->_request->getParam('password', null)));
+            $role = trim(strip_tags($this->_request->getParam('role', null)));
+            $hasEmail = Admin_Model_User::checkEmail($email);
+            if (count($hasEmail)) {
+                echo 'email used!!';
+                return;
+            }
 
+            $result = Admin_Model_User::setNewUser($name, $email, $phone, $pass, $role);
+            if ($result) {
+                echo 'aaaaaa'. count($result);die;
+            }
+
+        }
     }
 }

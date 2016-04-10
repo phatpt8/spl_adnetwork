@@ -30,6 +30,11 @@ class Admin_Model_User {
         return  Admin_Business_User::getUserByRole($role, $active);
     }
 
+    public static function checkEmail($email)
+    {
+        return Admin_Business_User::checkEmail($email);
+    }
+
     public static function setNewUser($name, $email, $phone, $pass, $role)
     {
         return  Admin_Business_User::setNewUser($name, $email, $phone, $pass, $role);
