@@ -2,22 +2,31 @@
 class AdvertiserController extends Zend_Controller_Action{
 
     public function indexAction() {
-        $defaultNamespace = new Zend_Session_Namespace('ZSN');
-        $ss = $defaultNamespace->initialized;
-        $role = $defaultNamespace->activeRole;
-        $fullname = $defaultNamespace->activeFullname;
-        $this->view->fullname = $fullname;
+        $this->view->headTitle()->append('Advertiser Page');
+        $this->_helper->layout->setLayout('advertiser');
 
-        if ($ss != "logged" && $role != 3) {
-            $this->redirect(SITE_URL . '/auth/login');
+        $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
+        if(isset($defaultNamespace)) {
+            $session = $defaultNamespace->newsession;
+
+            $init = $session["condition"];
+            $role =  $session["activeRole"];
+            $fullname =  $session["activeFullname"];
+            $id =  $session["activeId"];
+
+            if ($init != "logged" && $role != 2) {
+                $this->redirect(SITE_URL . '/user/login');
+            }
+
+            $view_arr = array(
+                'fullname' => $fullname
+            );
+            $this->view->assign($view_arr);
+
+            $result = Admin_Model_Banner::getAdvertiserBanners($id);
+            $this->view->bannerData = $result;
+        } else {
+            $this->redirect(SITE_URL . '/user/login');
         }
-
-        $this->view->headTitle()->append('Advertiser Page');
-        $this->_helper->layout->setLayout('advertiser');
-    }
-
-    public function createAction() {
-        $this->view->headTitle()->append('Advertiser Page');
-        $this->_helper->layout->setLayout('advertiser');
     }
 }

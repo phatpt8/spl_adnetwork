@@ -24,6 +24,7 @@ require_once 'Zend/Application.php' ;
 require_once 'Zend/Loader/Autoloader.php';
 $loader = Zend_Loader_Autoloader::getInstance();
 $loader->registerNamespace(array('Zend_', 'Admin_'));
+$loader->registerNamespace(array('Zend_', 'User_'));
 
 $application = new Zend_Application(
     APPLICATION_ENV,

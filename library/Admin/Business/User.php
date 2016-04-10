@@ -82,4 +82,89 @@ class Admin_Business_User {
         }
         return $arrResult;
     }
+
+    public static function setNewUser($strUserName, $strUserEmail, $strUserPhone, $strUserPassword, $intUserRole)
+    {
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('INSERT INTO user (UserName, UserEmail, UserPhone, UserPassword, UserRole) VALUES(?,?,?,?,?)', array($strUserName, $strUserEmail, $strUserPhone, $strUserPassword, $intUserRole));
+            $stmt->execute();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+    }
+
+    public static function updateUserInfo($intUserId, $strUserName, $strUserEmail, $strUserPhone)
+    {
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('UPDATE user SET UserName=?, UserEmail=?, UserPhone=? WHERE UserId=?', array($strUserName, $strUserEmail, $strUserPhone, $intUserId));
+            $stmt->execute();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+    }
+
+    public static function updateBalance($intUserId, $plus)
+    {
+        // get balance first then add plus
+        // add plus:
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('UPDATE user SET UserBalance= (UserBalance + ?) WHERE UserId=?', array($plus, $intUserId));
+            $stmt->execute();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+    }
+
+    public static function setAdminUser($intUserId)
+    {
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('UPDATE user SET UserRole=1 WHERE UserId=?', array($intUserId));
+            $stmt->execute();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+    }
+
+//    public static function unsetAdminUser($intUserId)
+//    {
+//
+//    }
+
+    public static function activateUser($intUserId)
+    {
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('UPDATE user SET UserStatus=2 WHERE UserId=?', array($intUserId));
+            $stmt->execute();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+    }
+
+    public static function deactivateUser($intUserId)
+    {
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('UPDATE user SET UserStatus=0 WHERE UserId=?', array($intUserId));
+            $stmt->execute();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+    }
 }

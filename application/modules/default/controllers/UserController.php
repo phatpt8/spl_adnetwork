@@ -11,7 +11,6 @@ class UserController extends Zend_Controller_Action{
         $this->_helper->viewRenderer->setNoRender();
 
         if($this->_request->isPost()){
-//            $autologin = trim($this->_request->getParam('autologin', null));
             $userEmail = trim($this->_request->getParam('email', null));
             $userPass = trim($this->_request->getParam('password', null));
 
@@ -21,17 +20,22 @@ class UserController extends Zend_Controller_Action{
                 $status = $result["UserStatus"];
                 $role = $result["UserRole"];
                 $fullname = $result["UserName"];
+                $userid = $result["UserId"];
 
                 if ($status == 0) {
                     echo 'User inactive';
                     return;
                 }
 
-                $defaultNamespace = new Zend_Session_Namespace('ZSN');
-                if (!isset($defaultNamespace->initialized) && $autologin) {
-                    $defaultNamespace->initialized = "logged";
-                    $defaultNamespace->activeRole = $role;
-                    $defaultNamespace->activeFullname = $fullname;
+                $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
+                if (!isset($defaultNamespace->initialized)) {
+                    $arrSession = array(
+                        'condition' => 'logged',
+                        'activeId' => $userid,
+                        'activeRole' => $role,
+                        'activeFullname' => $fullname
+                    );
+                    $defaultNamespace->newsession = $arrSession;
                     $defaultNamespace->setExpirationSeconds(9000);
                 }
 
@@ -48,11 +52,16 @@ class UserController extends Zend_Controller_Action{
         }
     }
 
-    public static function forgotpassAction() {
+    public function logoutAction() {
+        Zend_Session::destroy();
+        $this->redirect('/auth/login');
+    }
+
+    public function forgotpassAction() {
 
     }
 
-    public static function registerAction() {
+    public function registerAction() {
 
     }
 }

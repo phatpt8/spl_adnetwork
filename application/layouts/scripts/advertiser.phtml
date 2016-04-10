@@ -11,6 +11,7 @@
     <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/mycustom.js"></script>
     <link href="<?php echo STATIC_URL; ?>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo STATIC_URL; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo STATIC_URL; ?>/css/mycustom.css" rel="stylesheet">
 </head>
 
@@ -28,14 +29,17 @@
             <div class="profile">
                 <div class="profile_info">
                     <span>Welcome,</span>
-                    <h2> Advertiser name</h2>  <a href="<?php echo SITE_URL .'/auth/logout'?>"> Log out</a>
+                    <h2><?php foreach($this->fullname as $key => $name) {
+                            echo $name;
+                        } ?>
+
+                    </h2>  <a href="<?php echo SITE_URL .'/user/logout'?>"> Log out</a>
                 </div>
             </div>
             <!-- /menu prile quick info -->
 
             <br>
 
-            <div class="row">
                 <div class="sidebar">
                     <div class="mini-submenu">
                         <span class="icon-bar"></span>
@@ -43,16 +47,16 @@
                         <span class="icon-bar"></span>
                     </div>
                     <div class="list-group">
-        <span class="list-group-item active">
-
-            <span class="pull-right" id="slide-submenu">
-                <i class="fa fa-times"></i>
-            </span>
-        </span>
+                <span class="list-group-item active">
+                    Control Panel
+                    <span class="pull-right" id="slide-submenu">
+                        <i class="fa fa-times"></i>
+                    </span>
+                </span>
                         <a href="#" class="list-group-item">
                             <i class="fa fa-comment-o"></i> Analyze
                         </a>
-                        <a href="#" class="list-group-item">
+                        <a href="<?php echo SITE_URL .'/advertiser/banner'?>" class="list-group-item active">
                             <i class="fa fa-search"></i> Banner
                         </a>
                         <a href="#" class="list-group-item">
@@ -60,7 +64,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+
         </div>
     </div>
 

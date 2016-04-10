@@ -32,41 +32,41 @@ class Admin_Model_User {
 
     public static function setNewUser($name, $email, $phone, $pass, $role)
     {
-
+        return  Admin_Business_User::setNewUser($name, $email, $phone, $pass, $role);
     }
 
     public static function updateUserInfo($id, $name, $email, $phone)
     {
-
+        return  Admin_Business_User::updateUserInfo($id, $name, $email, $phone);
     }
 
     public static function updateBalance($id, $plus)
     {
         if (filter_var($plus, FILTER_VALIDATE_FLOAT))
         {
-
+            return  Admin_Business_User::updateBalance($id, $plus);
         }
         return null;
     }
 
     public static function setAdminUser($id)
     {
-
+        return  Admin_Business_User::setAdminUser($id);
     }
 
     public static function unsetAdminUser($id)
     {
-
+        return  Admin_Business_User::unsetAdminUser($id);
     }
 
     public static function activateUser($id)
     {
-
+        return  Admin_Business_User::activateUser($id);
     }
 
     public static function deactivateUser($id)
     {
-
+        return  Admin_Business_User::deactivateUser($id);
     }
 
 }
