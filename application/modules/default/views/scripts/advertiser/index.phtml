@@ -2,6 +2,9 @@
 <a class="btn btn-primary pull-right" href="<?php echo SITE_URL .'/advertiser/banner/create'?>">New Banner</a> controler???
 <hr>
 
+<?php if (empty($this->bannerData)) { ?>
+    <h3>No banner found!</h3>
+    <?php return;} ?>
 <table class="table table-bordered">
     <thead>
     <tr>

@@ -7,7 +7,6 @@ class Admin_Business_Banner {
         try {
             $storage = Admin_Global::getDb('db', 'master');
             $stmt = $storage->query('SELECT * FROM banner');
-            $stmt->execute();
             $arrResult = $stmt->fetch();
             $stmt->closeCursor();
             unset($stmt);
@@ -22,10 +21,10 @@ class Admin_Business_Banner {
         $arrResult = array();
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('SELECT * FROM banner WHERE UserId = :userId');
+            $stmt = $storage->prepare('SELECT * FROM banner WHERE UserId = :userId');
             $stmt->bindParam('userId', $intUserId, PDO::PARAM_INT);
             $stmt->execute();
-            $arrResult = $stmt->fetch();
+            $arrResult = $stmt->fetchAll();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {

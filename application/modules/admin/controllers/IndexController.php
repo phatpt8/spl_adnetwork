@@ -9,16 +9,19 @@ class Admin_IndexController extends Zend_Controller_Action{
 
         $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
         if(isset($defaultNamespace)) {
-            $init = $defaultNamespace->initialized;
-            $role = $defaultNamespace->activeRole;
-            $fullname = $defaultNamespace->activeFullname;
+            $arr_session = $defaultNamespace->newsession;
+            $condition = $arr_session['condition'];
+            $role = $arr_session['activeRole'];
+            $fullname = $arr_session['activeFullname'];
+            $id = $arr_session['activeId'];
 
-            if ($init != "logged" && $role != 1) {
+            if ($condition != "logged" && $role != 1) {
                 $this->redirect(SITE_URL . '/auth/login');
             }
 
             $view_arr = array(
-                'fullname' => $fullname
+                'fullname' => $fullname,
+                'id' => $id
             );
             $this->view->assign($view_arr);
 

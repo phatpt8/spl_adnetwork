@@ -104,11 +104,10 @@ class Admin_Business_User {
         $intUserId = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('INSERT INTO user (UserName, UserEmail, UserPhone, UserPassword, UserRole) VALUES(?,?,?,?,?)', array($strUserName, $strUserEmail, $strUserPhone, $strUserPassword, $intUserRole));
-            $stmt->execute();
+            $stmt = $storage->query('INSERT INTO user (UserName, UserEmail, UserPhone, UserPassword, UserRole) VALUES(?,?,?,?,?); SET @p_userid = LAST_INSERT_ID()', array($strUserName, $strUserEmail, $strUserPhone, $strUserPassword, $intUserRole));
             $stmt->closeCursor();
             unset($stmt);
-            $intUserId = $storage->lastInsertId();
+            $intUserId = $storage->query("SELECT @p_userid")->fetchColumn();
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }

@@ -16,7 +16,6 @@ class UserController extends Zend_Controller_Action{
 
             $result = Admin_Model_User::getUserByEmailandPassword($userEmail, $userPass);
             if (!empty($result)) {
-
                 $status = $result["UserStatus"];
                 $role = $result["UserRole"];
                 $fullname = $result["UserName"];
@@ -28,7 +27,7 @@ class UserController extends Zend_Controller_Action{
                 }
 
                 $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
-                if (!isset($defaultNamespace->initialized)) {
+                if (!isset($defaultNamespace->newsession)) {
                     $arrSession = array(
                         'condition' => 'logged',
                         'activeId' => $userid,
@@ -54,7 +53,7 @@ class UserController extends Zend_Controller_Action{
 
     public function logoutAction() {
         Zend_Session::destroy();
-        $this->redirect('/auth/login');
+        $this->redirect('/user/login');
     }
 
     public function forgotpassAction() {
@@ -70,7 +69,7 @@ class UserController extends Zend_Controller_Action{
             $email = trim(strip_tags($this->_request->getParam('email', null)));
             $phone = trim(strip_tags($this->_request->getParam('phone', null)));
             $pass = trim(strip_tags($this->_request->getParam('password', null)));
-            $role = trim(strip_tags($this->_request->getParam('role', null)));
+            $role = trim(strip_tags($this->_request->getParam('userRole', null)));
             $hasEmail = Admin_Model_User::checkEmail($email);
             if (count($hasEmail)) {
                 echo 'email used!!';
@@ -79,9 +78,8 @@ class UserController extends Zend_Controller_Action{
 
             $result = Admin_Model_User::setNewUser($name, $email, $phone, $pass, $role);
             if ($result) {
-                echo 'aaaaaa'. count($result);die;
+                $this->redirect(SITE_URL . '/user/login?status=registersuccess');
             }
-
         }
     }
 }

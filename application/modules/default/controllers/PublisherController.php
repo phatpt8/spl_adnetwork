@@ -4,16 +4,19 @@ class PublisherController extends Zend_Controller_Action{
     public function indexAction() {
         $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
         if(isset($defaultNamespace)) {
-            $init = $defaultNamespace->initialized;
-            $role = $defaultNamespace->activeRole;
-            $fullname = $defaultNamespace->activeFullname;
+            $arr_session = $defaultNamespace->newsession;
+            $condition = $arr_session['condition'];
+            $role = $arr_session['activeRole'];
+            $fullname = $arr_session['activeFullname'];
+            $id = $arr_session['activeId'];
 
-            if ($init != "logged" && $role != 3) {
+            if ($condition != "logged" && $role != 2) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 
             $view_arr = array(
-                'fullname' => $fullname
+                'fullname' => $fullname,
+                'id' => $id
             );
             $this->view->assign($view_arr);
 
