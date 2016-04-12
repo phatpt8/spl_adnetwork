@@ -1,0 +1,36 @@
+<h1> Advertiser content </h1>
+<a class="btn btn-primary pull-right" href="<?php echo SITE_URL .'/advertiser/banner/add'?>">New Banner</a>
+<hr>
+
+<?php if (empty($this->bannerData)) { ?>
+    <h3>No banner found!</h3>
+    <?php return;} ?>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>BannerId</th>
+        <th>BannerPrice</th>
+        <th>BannerFormat</th>
+        <th>BannerWidth</th>
+        <th>BannerHeight</th>
+        <th>BannerMethod</th>
+        <th>BannerInfo</th>
+        <th>BannerStatus</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($this->bannerData as $key => $banner) { ?>
+        <tr>
+            <td> <?php echo $banner["BannerId"]; ?> </td>
+            <td> <?php echo $banner["BannerPrice"]; ?> </td>
+            <td> <?php echo $banner["BannerFormat"]; ?> </td>
+            <td> <?php echo $banner["BannerWidth"]; ?> </td>
+            <td> <?php echo $banner["BannerHeight"]; ?> </td>
+            <td> <?php echo $banner["BannerMethod"]; ?> </td>
+            <td> <?php echo $banner["BannerInfo"]; ?> </td>
+            <td> <?php echo $banner["BannerStatus"]; ?></td>
+        </tr>
+    <?php } ?>
+
+    </tbody>
+</table>

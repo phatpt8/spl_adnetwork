@@ -48,15 +48,15 @@ class Admin_Business_User {
 
     public static function getUserByRole($intUserRole, $boolActive = 0) {
         if ($boolActive) {
-            $query = 'SELECT * FROM user WHERE UserRole = :userRole AND UserStatus=1';
+            $prepare = 'SELECT * FROM user WHERE UserRole = :userRole AND UserStatus=1';
         } else {
-            $query = 'SELECT * FROM user WHERE UserRole = :userRole';
+            $prepare = 'SELECT * FROM user WHERE UserRole = :userRole';
         }
 
         $arrResult = array();
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query($query);
+            $stmt = $storage->prepare($prepare);
             $stmt->bindParam('userRole', $intUserRole, PDO::PARAM_INT);
             $stmt->execute();
             $arrResult = $stmt->fetch();
@@ -73,7 +73,6 @@ class Admin_Business_User {
         try {
             $storage = Admin_Global::getDb('db', 'master');
             $stmt = $storage->query('SELECT * FROM user');
-            $stmt->execute();
             $arrResult = $stmt->fetchAll();
             $stmt->closeCursor();
             unset($stmt);
@@ -89,7 +88,6 @@ class Admin_Business_User {
         try {
             $storage = Admin_Global::getDb('db', 'master');
             $stmt = $storage->query('SELECT UserEmail FROM user WHERE UserEmail=?', array($strUserEmail));
-            $stmt->execute();
             $arrResult = $stmt->fetchAll();
             $stmt->closeCursor();
             unset($stmt);
@@ -119,7 +117,6 @@ class Admin_Business_User {
         try {
             $storage = Admin_Global::getDb('db', 'master');
             $stmt = $storage->query('UPDATE user SET UserName=?, UserEmail=?, UserPhone=? WHERE UserId=?', array($strUserName, $strUserEmail, $strUserPhone, $intUserId));
-            $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
@@ -134,7 +131,6 @@ class Admin_Business_User {
         try {
             $storage = Admin_Global::getDb('db', 'master');
             $stmt = $storage->query('UPDATE user SET UserBalance= (UserBalance + ?) WHERE UserId=?', array($plus, $intUserId));
-            $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
@@ -147,7 +143,6 @@ class Admin_Business_User {
         try {
             $storage = Admin_Global::getDb('db', 'master');
             $stmt = $storage->query('UPDATE user SET UserRole=1 WHERE UserId=?', array($intUserId));
-            $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
