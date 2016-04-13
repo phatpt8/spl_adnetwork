@@ -1,29 +1,36 @@
 <div class="container">
-    <form action="<?php echo SITE_URL . '/user/verify'?>" method="POST" id="form_add_banner" autocomplete="off" novalidate="novalidate" class="form-signin">
-        <h2 class="form-signin-heading">Add new banner</h2>
+    <div class="col-md-5">
+        <form action="" method="POST" id="form_add_banner" autocomplete="off" novalidate="novalidate" class="form-signin">
+            <h2 class="form-signin-heading">Add new banner</h2>
 
-        <label class="sr-only" for="inputTitle">Title</label>
-        <input type="text" autofocus="" required="" placeholder="Title" class="form-control" name="title" id="title">
+            <label class="sr-only" for="inputTitle">Title</label>
+            <input type="text" autofocus="" required="" placeholder="Title" class="form-control" name="title" id="title">
 
-        <label class="sr-only" for="inputImage">Image</label>
-        <input type="text" required="" placeholder="Image" class="form-control" name="image" id="image">
+            <label class="sr-only" for="inputImage">Image</label>
+            <input type="text" required="" placeholder="Image" class="form-control" name="image" id="image">
 
-        <label class="sr-only" for="inputClickUrl">Click Url</label>
-        <input type="text" autofocus="" required="" placeholder="Click Url" class="form-control" name="clickUrl" id="clickUrl">
+            <label class="sr-only" for="inputClickUrl">Click Url</label>
+            <input type="text" required="" placeholder="Click Url" class="form-control" name="clickUrl" id="clickUrl">
 
-        <label class="sr-only" for="inputFormat">Format</label>
-        <input type="text" required="" placeholder="Format" class="form-control" name="format" id="format">
+            <label class="sr-only" for="inputFormat">Format</label>
+            <input type="text" required="" placeholder="Format" class="form-control" name="format" id="format">
 
-        <label class="sr-only" for="inputPrice">Price</label>
-        <input type="text" autofocus="" required="" placeholder="Price" class="form-control" name="price" id="price">
+            <label class="sr-only" for="inputPrice">Price</label>
+            <input type="text" required="" placeholder="Price" class="form-control" name="price" id="price">
 
-        <label class="sr-only" for="inputPlacement">Placement</label>
-        <input type="text" required="" placeholder="Placement" class="form-control" name="placement" id="placement">
-
-        <label class="sr-only" for="inputMethod">Method</label>
-        <input type="text" autofocus="" required="" placeholder="Method" class="form-control" name="method" id="method">
-
-        <button type="submit" class="btn btn-lg btn-primary btn-block" style="height: 36px;width:20%;float:left;">Add</button>
-        <button type="button" class="btn btn-default" style="height: 36px;width:20%;float:left;">Cancel</button>
-    </form>
+            <label>Placement:</label>
+            <input type="radio" name="placement" id="placement1" value="300x250" checked="checked"><label for="placement1">300x250</label>
+            <input type="radio" name="placement" id="placement2" value="300x600"><label for="placement2">300x600</label>
+            <input type="radio" name="placement" id="placement3" value="480x270"><label for="placement3">480x270</label>
+            <br>
+            <label for="method">Method:</label>
+            <input type="radio" name="method" id="cpm" value="2" checked="checked"><label for="cpm">CPM</label>
+            <input type="radio" name="method" id="cpc" value="1"><label for="cpc">CPC</label>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" style="height: 36px;width:20%;float:left;">Add</button>
+            <!--        <button type="button" class="btn btn-default" style="height: 36px;width:20%;float:left;">Cancel</button>-->
+        </form>
+    </div>
 </div>
+

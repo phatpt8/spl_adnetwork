@@ -12,4 +12,11 @@ $(function(){
         $(this).next('.list-group').toggle('slide');
         $('.mini-submenu').hide();
     })
+
+    setTimeout(function() {
+        $('#admin_content').removeClass('col-md-9').addClass('col-md-11');
+        $('#slide-submenu').closest('.list-group').fadeOut(1000,function(){
+            $('.mini-submenu').fadeIn();
+        });
+    }, 5000);
 });

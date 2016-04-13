@@ -15,7 +15,6 @@ class AuthController extends Zend_Controller_Action{
         $this->_helper->viewRenderer->setNoRender();
 
         if($this->_request->isPost()){
-//            $autologin = trim($this->_request->getParam('autologin', null));
             $userEmail = trim($this->_request->getParam('email', null));
             $userPass = trim($this->_request->getParam('password', null));
             $result = Admin_Model_User::getUserByEmailandPassword($userEmail, $userPass);
@@ -31,11 +30,14 @@ class AuthController extends Zend_Controller_Action{
                 }
 
                 $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
-                if (!isset($defaultNamespace->initialized)) {
-                    $defaultNamespace->initialized = "logged";
-                    $defaultNamespace->activeId = $userid;
-                    $defaultNamespace->activeRole = $role;
-                    $defaultNamespace->activeFullname = $fullname;
+                if (!isset($defaultNamespace->newsession)) {
+                    $arrSession = array(
+                        'condition' => 'logged',
+                        'activeId' => $userid,
+                        'activeRole' => $role,
+                        'activeFullname' => $fullname
+                    );
+                    $defaultNamespace->newsession = $arrSession;
                     $defaultNamespace->setExpirationSeconds(9000);
                 }
 

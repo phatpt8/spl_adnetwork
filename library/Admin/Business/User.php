@@ -5,7 +5,7 @@ class Admin_Business_User {
         $arrResult = array();
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('SELECT * FROM user WHERE UserId = :userId ');
+            $stmt = $storage->prepare('SELECT * FROM user WHERE UserId = :userId ');
             $stmt->bindParam('userId', $intUserId, PDO::PARAM_INT);
             $stmt->execute();
             $arrResult = $stmt->fetch();
@@ -21,7 +21,9 @@ class Admin_Business_User {
         $arrResult = array();
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $arrResult = $storage->fetchRow('SELECT * FROM user WHERE UserEmail= ? AND UserPassword= ?', array($strUserEmail, $strUserPassword));
+            $stmt = $storage->query('SELECT * FROM user WHERE UserEmail= ? AND UserPassword= ?', array($strUserEmail, $strUserPassword));
+            $arrResult = $stmt->fetch();
+            $stmt->closeCursor();
             unset($storage);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
@@ -36,8 +38,7 @@ class Admin_Business_User {
         try {
             $storage = Admin_Global::getDb('db', 'master');
             $stmt = $storage->query('SELECT * FROM user WHERE UserRole = 2 AND UserRole = 3');
-            $stmt->execute();
-            $arrResult = $stmt->fetch();
+            $arrResult = $stmt->fetchAll();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
@@ -59,7 +60,7 @@ class Admin_Business_User {
             $stmt = $storage->prepare($prepare);
             $stmt->bindParam('userRole', $intUserRole, PDO::PARAM_INT);
             $stmt->execute();
-            $arrResult = $stmt->fetch();
+            $arrResult = $stmt->fetchAll();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
@@ -114,28 +115,40 @@ class Admin_Business_User {
 
     public static function updateUserInfo($intUserId, $strUserName, $strUserEmail, $strUserPhone)
     {
+        $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('UPDATE user SET UserName=?, UserEmail=?, UserPhone=? WHERE UserId=?', array($strUserName, $strUserEmail, $strUserPhone, $intUserId));
+            $stmt = $storage->prepare('UPDATE user SET UserName=:name, UserEmail=:mail, UserPhone=:phone WHERE UserId=:userId');
+            $stmt->bindParam('name', $strUserName, PDO::PARAM_STR);
+            $stmt->bindParam('mail', $strUserEmail, PDO::PARAM_STR);
+            $stmt->bindParam('phone', $strUserPhone, PDO::PARAM_STR);
+            $stmt->bindParam('userId', $intUserId, PDO::PARAM_INT);
+            $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
+        return $result;
     }
 
     public static function updateBalance($intUserId, $plus)
     {
         // get balance first then add plus
         // add plus:
+        $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('UPDATE user SET UserBalance= (UserBalance + ?) WHERE UserId=?', array($plus, $intUserId));
+            $stmt = $storage->prepare('UPDATE user SET UserBalance= (UserBalance + :plus) WHERE UserId=:userId');
+            $stmt->bindParam('plus', $plus, PDO::PARAM_INT);
+            $stmt->bindParam('userId', $intUserId, PDO::PARAM_INT);
+            $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
+        return $result;
     }
 
     public static function setAdminUser($intUserId)
@@ -149,11 +162,6 @@ class Admin_Business_User {
             Admin_Global::sendLog($e);
         }
     }
-
-//    public static function unsetAdminUser($intUserId)
-//    {
-//
-//    }
 
     public static function activateUser($intUserId)
     {

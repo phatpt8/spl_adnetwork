@@ -6,8 +6,8 @@ class Admin_Business_Banner {
         $arrResult = array();
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('SELECT * FROM banner');
-            $arrResult = $stmt->fetch();
+            $stmt = $storage->query('SELECT b.BannerId, u.UserName, u.UserEmail, b.BannerWidth, b.BannerHeight,b.BannerPrice, b.BannerFormat, b.BannerMethod, b.BannerInfo, b.BannerStatus FROM banner b, user u WHERE b.UserId = u.UserId');
+            $arrResult = $stmt->fetchAll();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
@@ -33,59 +33,73 @@ class Admin_Business_Banner {
         return $arrResult;
     }
 
-    public static function createNewBanner($intUserId, $floatBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo)
+    public static function createNewBanner($intUserId, $intBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo)
     {
-        $arrResult = array();
+        $intBannerId = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('INSERT INTO banner (BannerPrice, BannerFormat, BannerWidth, BannerHeight, BannerMethod, BannerInfo, UserId) VALUES(?,?,?,?,?,?,?)', array( $floatBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo, $intUserId));
-            $stmt->execute();
-            $arrResult = $stmt->fetch();
+            $stmt = $storage->query('INSERT INTO banner (BannerPrice, BannerFormat, BannerWidth, BannerHeight, BannerMethod, BannerInfo, UserId) VALUES(?,?,?,?,?,?,?); SET @p_bannerid = LAST_INSERT_ID()', array( $intBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo, $intUserId));
             $stmt->closeCursor();
             unset($stmt);
+            $intBannerId = $storage->query("SELECT @p_bannerid")->fetchColumn();
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $arrResult;
+        return $intBannerId;
     }
 
-    public static function updateBannerInfo($intBannerId, $floatBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo)
+    public static function updateBannerInfo($intBannerId, $intBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo)
     {
+        $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('UPDATE banner SET BannerPrice=?,BannerFormat=?,BannerWidth=?,BannerHeight=?,BannerMethod=?,BannerInfo=? WHERE BannerId=?', array($floatBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo, $intBannerId));
-            $stmt->execute();
+            $stmt = $storage->prepare('UPDATE banner SET BannerPrice=:price,BannerFormat=:format,BannerWidth=:width,BannerHeight=:height,BannerMethod=:method,BannerInfo=:info WHERE BannerId=:bannerId');
+            $stmt->bindParam('price', $intBannerPrice, PDO::PARAM_INT);
+            $stmt->bindParam('format', $intBannerFormat, PDO::PARAM_INT);
+            $stmt->bindParam('width', $intBannerWidth, PDO::PARAM_INT);
+            $stmt->bindParam('height', $intBannerHeight, PDO::PARAM_INT);
+            $stmt->bindParam('method', $intBannerMethod, PDO::PARAM_INT);
+            $stmt->bindParam('info', $strBannerInfo, PDO::PARAM_STR);
+            $stmt->bindParam('bannerId', $intBannerId, PDO::PARAM_INT);
+            $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
+        return $result;
     }
 
     public static function activateBanner($intBannerId)
     {
+        $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('UPDATE banner SET BannerStatus=2 WHERE BannerId=?', array($intBannerId));
-            $stmt->execute();
+            $stmt = $storage->prepare('UPDATE banner SET BannerStatus=2 WHERE BannerId=:bannerId');
+            $stmt->bindParam('bannerId', $intBannerId, PDO::PARAM_INT);
+            $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
+        return $result;
     }
 
     public static function deactivateBanner($intBannerId)
     {
+        $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('UPDATE banner SET BannerStatus=0 WHERE BannerId=?', array($intBannerId));
-            $stmt->execute();
+            $stmt = $storage->prepare('UPDATE banner SET BannerStatus=0 WHERE BannerId=:bannerId');
+            $stmt->bindParam('bannerId', $intBannerId, PDO::PARAM_INT);
+            $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
+        return $result;
     }
 
 

@@ -21,17 +21,17 @@
         <div class="left_col scroll-view" tabindex="5000" style="overflow: hidden; outline: none; cursor: -webkit-grab;">
 
             <div class="navbar nav_title" style="border: 0;">
-                <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span> Admin Dashboard Logo </span></a>
+                <a href="#" class="site_title"><i class="fa fa-paw"></i> <span> Admin Dashboard Logo </span></a>
             </div>
             <div class="clearfix"></div>
 
             <!-- menu prile quick info -->
-            <div class="profile">
-                <div class="profile_info">
-                    <span>Welcome,</span>
-                    <h2> <?php echo $this->layout()->fullname; ?> </h2>  <a href="<?php echo SITE_URL .'/user/logout'?>"> Log out</a>
-                </div>
-            </div>
+<!--            <div class="profile">-->
+<!--                <div class="profile_info">-->
+<!--                    <span>Welcome,</span>-->
+<!--                    <h2> --><?php //echo $this->layout()->fullname; ?><!-- </h2>  <a href="--><?php //echo SITE_URL .'/user/logout'?><!--"> Log out</a>-->
+<!--                </div>-->
+<!--            </div>-->
             <!-- /menu prile quick info -->
 
             <br>
@@ -49,13 +49,13 @@
                         <i class="fa fa-times"></i>
                     </span>
                 </span>
-                        <a href="#" class="list-group-item">
+                        <a href="<?php echo SITE_URL .'/advertiser/banner/analyze'?>" class="list-group-item">
                             <i class="fa fa-comment-o"></i> Analyze
                         </a>
-                        <a href="<?php echo SITE_URL .'/advertiser/banner'?>" class="list-group-item active">
+                        <a href="<?php echo SITE_URL .'/advertiser/index'?>" class="list-group-item active">
                             <i class="fa fa-search"></i> Banner
                         </a>
-                        <a href="#" class="list-group-item">
+                        <a href="<?php echo SITE_URL .'/advertiser/balance'?>" class="list-group-item">
                             <i class="fa fa-user"></i> Balance Info
                         </a>
                     </div>
@@ -66,7 +66,7 @@
 
     <div id="page-wrapper" class="gray-bg">
 
-        <!--        --><?php //echo $this->render('/partials/nav_header.phtml'); ?>
+        <?php echo $this->render('/partials/nav_header.phtml'); ?>
 
         <div class="wrapper wrapper-content">
 

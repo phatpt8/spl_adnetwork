@@ -1,0 +1,54 @@
+<div class="container">
+    <h3> Admin-Advertiser Dashboard</h3>
+<!--    <a class="btn btn-primary pull-right" href="--><?php //echo SITE_URL .'/advertiser/banner/add'?><!--">New Banner</a>-->
+    <hr>
+
+    <?php if (empty($this->bannerData)) { ?>
+        <h3>No banner found!</h3>
+    <?php return;} else { ?>
+        <div class="panel panel-default">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="col-sm-1">BannerId</th>
+                        <th class="col-sm-2">Name</th>
+                        <th class="col-sm-2">Creative</th>
+                        <th class="col-md-2">Information</th>
+                        <th class="col-md-1">BannerStatus</th>
+                        <th class="col-md-1">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($this->bannerData as $key => $banner) { ?>
+                        <?php $bInfo = json_decode($banner["BannerInfo"]); ?>
+                        <tr>
+                            <td> <?php echo $banner["BannerId"]; ?> </td>
+                            <td class="text-left">
+                                <div class="txt_bold"> <?php echo $bInfo->title; ?></div>
+                                <div class="txt_email"> <?php echo $bInfo->url; ?></div>
+                            </td>
+                            <td class="text-left">
+                                <div class="txt_bold"> <?php echo $bInfo->file; ?></div>
+                            </td>
+                            <td class="text-left">
+                                <strong>Type: &nbsp;</strong> <?php echo $banner["BannerFormat"]; ?> <br>
+                                <strong>Method: &nbsp;</strong> <?php echo $banner["BannerMethod"]; ?> <br>
+                                <strong>Placement: &nbsp;</strong> <?php echo $banner["BannerWidth"] . "x" . $banner["BannerHeight"]; ?> <br>
+                                <div class="txt_bold">
+                                    <?php echo $banner["UserName"]; ?>
+                                </div>
+                                <div class="txt_email">
+                                    <?php echo $banner["UserEmail"]; ?>
+                                </div>
+                            </td>
+                            <td class="text-center text-nowrap"> <?php echo ($banner["BannerStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($banner["BannerStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
+                            <td> <?php if ($banner["BannerStatus"] == "1"){ ?><a href="<?php echo SITE_URL .'/admin/banner/approve?id=' . $banner["BannerId"]?>">Approve</a> <?php } ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <?php } ?>
+</div>

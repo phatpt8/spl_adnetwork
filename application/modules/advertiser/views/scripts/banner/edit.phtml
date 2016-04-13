@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="col-md-5">
+        <form action="<?php echo SITE_URL . '/advertiser/banner/edit'?>" method="POST" id="form_add_banner" autocomplete="off" novalidate="novalidate" class="form-signin">
+            <h2 class="form-signin-heading">Edit banner</h2>
+            <input type="hidden" value="<?php echo $this->editBanner['id'];?>" name="id" id="id">
+
+            <div class="">
+                <label class="sr-only" for="inputTitle">Title</label>
+                <input type="text" value="<?php echo $this->editBanner['title'];?>" autofocus="" required="" placeholder="Title" class="form-control" name="title" id="title">
+
+            </div>
+            <div class="">
+
+                <label class="sr-only" for="inputImage">Image</label>
+                <input type="text" value="<?php echo $this->editBanner['file'];?>" required="" placeholder="Image" class="form-control" name="image" id="image">
+
+            </div>
+            <div class="">
+
+                <label class="sr-only" for="inputClickUrl">Click Url</label>
+                <input type="text" value="<?php echo $this->editBanner['url'];?>" required="" placeholder="Click Url" class="form-control" name="clickUrl" id="clickUrl">
+
+            </div>
+            <div class="">
+
+                <label class="sr-only" for="inputFormat">Format</label>
+                <input type="text" value="<?php echo $this->editBanner['format'];?>" required="" placeholder="Format" class="form-control" name="format" id="format">
+
+            </div>
+            <div class="">
+
+                <label class="sr-only" for="inputPrice">Price</label>
+                <input type="text" value="<?php echo $this->editBanner['price'];?>" required="" placeholder="Price" class="form-control" name="price" id="price">
+
+            </div>
+
+            <div class="">
+                <label>Placement:</label>
+                <?php $placement = join("x", array($this->editBanner['width'], $this->editBanner['height']))?>
+                <input type="radio" name="placement" id="placement1" value="300x250" <?php echo (($placement == "300x250") ? 'checked="checked"' : '')?>><label for="placement1">300x250</label>
+                <input type="radio" name="placement" id="placement2" value="300x600" <?php echo (($placement == "300x600") ? 'checked="checked"' : '')?>><label for="placement2">300x600</label>
+                <input type="radio" name="placement" id="placement3" value="480x270" <?php echo (($placement == "480x270") ? 'checked="checked"' : '')?>><label for="placement3">480x270</label>
+            </div>
+            <div class="">
+                <label for="method">Method:</label>
+                <input type="radio" name="method" id="cpm" value="2" <?php echo (($this->editBanner['method'] == "2") ? 'checked="checked"' : '')?>><label for="cpm">CPM</label>
+                <input type="radio" name="method" id="cpc" value="1" <?php echo (($this->editBanner['method'] == "1") ? 'checked="checked"' : '')?>><label for="cpc">CPC</label>
+            </div>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" style="height: 36px;width:20%;float:left;">Edit</button>
+            <button type="button" class="btn btn-default" style="height: 36px;width:20%;float:left;">Cancel</button>
+        </form>
+    </div>
+</div>
+
