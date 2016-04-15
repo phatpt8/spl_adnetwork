@@ -1,0 +1,38 @@
+<div class="container">
+    <h3> Publisher Dashboard</h3>
+    <a class="btn btn-primary pull-right" href="<?php echo SITE_URL .'/publisher/zone/add'?>">New zone</a>
+    <hr>
+
+    <?php if (empty($this->zoneData)) { ?>
+        <h3>No zone found!</h3>
+        <?php return;} else { ?>
+    <table class="table table-bordered text-right">
+        <thead>
+        <tr>
+            <th>zoneId</th>
+            <th>ZoneName</th>
+            <th>zoneCreateTime</th>
+            <th>zoneFormat</th>
+            <th>zoneWidth</th>
+            <th>zoneHeight</th>
+            <th>zoneStatus</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($this->zoneData as $key => $zone) { ?>
+            <tr>
+                <td> <?php echo $zone["ZoneId"]; ?> </td>
+                <td> <?php echo $zone["ZoneName"]; ?> </td>
+                <td> <?php $date=date_create($zone["ZoneCreateTimestamp"]); echo date_format($date, 'd/m/Y H:i:s'); ?> </td>
+                <td> <?php echo $zone["ZoneFormat"]; ?> </td>
+                <td> <?php echo $zone["ZoneWidth"]; ?> </td>
+                <td> <?php echo $zone["ZoneHeight"]; ?> </td>
+                <td> <?php echo ($zone["ZoneStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($zone["ZoneStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
+                <td><a href="<?php echo SITE_URL .'/publisher/zone/edit/?id=' . $zone["ZoneId"] . '&name=' . $zone["ZoneName"] . '&width=' . $zone["ZoneWidth"] . '&height=' . $zone["ZoneHeight"] . '&format=' . $zone["ZoneFormat"] ?>">Edit</a></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <?php } ?>
+</div>

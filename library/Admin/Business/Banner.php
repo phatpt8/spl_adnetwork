@@ -48,12 +48,12 @@ class Admin_Business_Banner {
         return $intBannerId;
     }
 
-    public static function updateBannerInfo($intBannerId, $intBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo)
+    public static function updateBannerInfo($intBannerId, $intBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo, $checkUserId)
     {
         $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->prepare('UPDATE banner SET BannerPrice=:price,BannerFormat=:format,BannerWidth=:width,BannerHeight=:height,BannerMethod=:method,BannerInfo=:info WHERE BannerId=:bannerId');
+            $stmt = $storage->prepare('UPDATE banner SET BannerPrice=:price,BannerFormat=:format,BannerWidth=:width,BannerHeight=:height,BannerMethod=:method,BannerInfo=:info,BannerStatus=2 WHERE BannerId=:bannerId ' . $checkUserId);
             $stmt->bindParam('price', $intBannerPrice, PDO::PARAM_INT);
             $stmt->bindParam('format', $intBannerFormat, PDO::PARAM_INT);
             $stmt->bindParam('width', $intBannerWidth, PDO::PARAM_INT);

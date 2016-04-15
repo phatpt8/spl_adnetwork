@@ -5,4 +5,10 @@ class Admin_Model_Click {
     {
         return Admin_Business_Click::getClicksCount();
     }
+
+    public static function insertNewClick($price, $url, $bid)
+    {
+        return Admin_Business_Click::insertNewClick($price, $url, $bid);
+    }
+
 }

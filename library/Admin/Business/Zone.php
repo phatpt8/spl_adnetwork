@@ -48,15 +48,15 @@ class Admin_Business_Zone {
         return $intBannerId;
     }
 
-    public static function updateZoneInfo($intZoneId, $intZoneWidth, $intZoneHeight, $strZoneName, $intZoneFormat)
+    public static function updateZoneInfo($intZoneId, $intZoneWidth, $intZoneHeight, $strZoneName, $intZoneFormat, $checkUserId)
     {
         $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->prepare('UPDATE zone SET ZoneWidth=:width,ZoneHeight=:height,ZoneName=:name,ZoneFormat=:format WHERE ZoneId=:zoneId');
+            $stmt = $storage->prepare('UPDATE zone SET ZoneWidth=:width,ZoneHeight=:height,ZoneName=:zname,ZoneFormat=:format, ZoneStatus=1 WHERE ZoneId=:zoneId ' . $checkUserId);
             $stmt->bindParam('width', $intZoneWidth, PDO::PARAM_INT);
             $stmt->bindParam('height', $intZoneHeight, PDO::PARAM_INT);
-            $stmt->bindParam('name', $strZoneName, PDO::PARAM_INT);
+            $stmt->bindParam('zname', $strZoneName, PDO::PARAM_STR);
             $stmt->bindParam('format', $intZoneFormat, PDO::PARAM_INT);
             $stmt->bindParam('zoneId', $intZoneId, PDO::PARAM_INT);
             $result = $stmt->execute();

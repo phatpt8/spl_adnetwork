@@ -15,4 +15,25 @@ class Admin_Business_Click {
         }
         return $result[0];
     }
+
+    public static function getClicksFromBanner($intBannerId)
+    {
+
+    }
+
+    public static function insertNewClick($intClickPrice, $strClickUrl, $intBannerId)
+    {
+        $intUserId = 0;
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('INSERT INTO clickdetail (ClickPrice, ClickUrl, BannerId) VALUES(?,?,?); SET @p_clickid = LAST_INSERT_ID()', array($intClickPrice, $strClickUrl, $intBannerId));
+            $stmt->closeCursor();
+            unset($stmt);
+            $intUserId = $storage->query("SELECT @p_clickid")->fetchColumn();
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $intUserId;
+    }
+
 }

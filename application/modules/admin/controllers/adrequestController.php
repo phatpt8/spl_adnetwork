@@ -9,13 +9,12 @@ class Admin_AdrequestController extends Zend_Controller_Action {
             $zoneId = trim($this->_request->getParam('id', null));
             $callbackName = trim($this->_request->getParam('callback', null));
             if (!isset($callbackName)) {
-
+                return;
             }
 
             $suitBanners = array();
             $zoneData = Admin_Model_Zone::getZoneById($zoneId); // GET APPROVED ZONE !!!!!!!!!!!
             if (!empty($zoneData)) {
-
                 $zoneFormat = $zoneData["ZoneFormat"];
                 $zoneWidth = $zoneData["ZoneWidth"];
                 $zoneHeight = $zoneData["ZoneHeight"];
@@ -34,14 +33,30 @@ class Admin_AdrequestController extends Zend_Controller_Action {
                         'width' => $zoneWidth,
                         'height' => $zoneHeight,
                         'format' => $zoneFormat,
-                        'banner' => array($suitBanner)
+                        'banners' => array($suitBanner)
                     );
-                    echo '<pre style="word-wrap: break-word; white-space: pre-wrap;">' . $callbackName . ' && ' . $callbackName . '(' . json_encode($response) . ')' . '</pre>';
+                    echo $callbackName . ' && ' . $callbackName . '(' . json_encode($response) . ')';
                 }
             } else {
-                echo '<pre style="word-wrap: break-word; white-space: pre-wrap;">' . $callbackName . ' && ' . $callbackName . '(' . json_encode(array('INVALID' => true)) . ')' . '</pre>';
+                echo $callbackName . ' && ' . $callbackName . '(' . json_encode(array('INVALID' => true)) . ')';
             }
 
+        }
+    }
+
+    public function clickadAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        if($this->_request->isGet()) {
+            $price = trim($this->_request->getParam('price', null));
+            $url = trim($this->_request->getParam('bid', null));
+            $bannerId = trim($this->_request->getParam('bid', null));
+            $redirect = trim($this->_request->getParam('redirect', null));
+
+            $result = Admin_Model_Click::insertNewClick($price, $url, $bannerId);
+//            if ()
+            $this->redirect($redirect);
         }
     }
 }

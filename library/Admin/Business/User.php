@@ -152,8 +152,8 @@ class Admin_Business_User {
         $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->prepare('UPDATE user SET UserName=:name, UserEmail=:mail, UserPhone=:phone WHERE UserId=:userId');
-            $stmt->bindParam('name', $strUserName, PDO::PARAM_STR);
+            $stmt = $storage->prepare('UPDATE user SET UserName=:uname, UserEmail=:mail, UserPhone=:phone WHERE UserId=:userId');
+            $stmt->bindParam('uname', $strUserName, PDO::PARAM_STR);
             $stmt->bindParam('mail', $strUserEmail, PDO::PARAM_STR);
             $stmt->bindParam('phone', $strUserPhone, PDO::PARAM_STR);
             $stmt->bindParam('userId', $intUserId, PDO::PARAM_INT);

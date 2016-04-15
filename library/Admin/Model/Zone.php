@@ -16,9 +16,13 @@ class Admin_Model_Zone {
         return Admin_Business_Zone::createNewZone($userId, $width, $height, $name, $format);
     }
 
-    public static function updateZoneInfo($id, $width, $height, $name, $format)
+    public static function updateZoneInfo($id, $width, $height, $name, $format, $userId)
     {
-        return Admin_Business_Zone::updateZoneInfo($id, $width, $height, $name, $format);
+        $checkUserId = "";
+        if ($userId != 1 || $userId != 11) {
+            $checkUserId = 'AND UserId=' . $userId;
+        }
+        return Admin_Business_Zone::updateZoneInfo($id, $width, $height, $name, $format, $checkUserId);
     }
 
     public static function updateZoneStatus($id, $status)

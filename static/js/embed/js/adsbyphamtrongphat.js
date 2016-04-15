@@ -169,9 +169,11 @@
         }
         writeStrFrame(ifm, params);
 
-        var psplInFrameConfig = _toFrameGlobalVar(params);
         var psplInFrameCss = _toStrCss();
         var psplInFrameJs = _toStrJs();
+        params.pspl_cssUrl = psplStatic + 'css/pspl.css';
+        params.pspl_jsUrl = psplStatic + 'js/implementads.js';
+        var psplInFrameConfig = _toFrameGlobalVar(params);
         var psplInFrameHtml = ["<!doctype html><html><head><meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=yes'>", psplInFrameCss ,"</head><body style='margin: 0; padding: 0;'>", "<", "script", ">", "eclick_unique_id=", win.pspl_unique_id, ";" + psplInFrameConfig, "</", "script", ">", psplInFrameJs, "</body></html>"].join("");
 
         writeContent(params.pspl_frameId, psplInFrameHtml, true)();
@@ -226,7 +228,6 @@
 
     var writeContent = function (id, str, bool) {
         return function () {
-            var flag = false;
             try {
                 var ifrCnt = win.document.getElementById(id).contentWindow;
                 if (ya(ifrCnt)) {
@@ -277,9 +278,7 @@
                     }
                     l.location.replace("javascript:" + m)
                 }
-                flag = true;
             } catch (ex) {
-                //l = Eb().google_jobrunner, Jc(l) && l.rl()
             }
 
         }

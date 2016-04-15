@@ -16,9 +16,13 @@ class Admin_Model_Banner {
         return Admin_Business_Banner::createNewBanner($userId, $price, $format, $width, $height, $method, $info);
     }
 
-    public static function updateBannerInfo($bannerId, $price, $format, $width, $height, $method, $info)
+    public static function updateBannerInfo($bannerId, $price, $format, $width, $height, $method, $info, $userId)
     {
-        return Admin_Business_Banner::updateBannerInfo($bannerId, $price, $format, $width, $height, $method, $info);
+        $checkUserId = "";
+        if ($userId != 1 || $userId != 11) {
+            $checkUserId = 'AND UserId=' . $userId;
+        }
+        return Admin_Business_Banner::updateBannerInfo($bannerId, $price, $format, $width, $height, $method, $info, $checkUserId);
     }
 
     public static function updateBannerStatus($bannerId, $bannerStatus)
