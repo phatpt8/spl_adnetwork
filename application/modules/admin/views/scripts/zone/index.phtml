@@ -1,1 +1,56 @@
-<h1>This is a fucking admin publisher</h1>
+<div class="container">
+    <h3> Admin-Zone Dashboard</h3>
+    <!--    <a class="btn btn-primary pull-right" href="--><?php //echo SITE_URL .'/advertiser/banner/add'?><!--">New Banner</a>-->
+    <hr>
+
+    <?php if (empty($this->zoneData)) { ?>
+        <h3>No zone found!</h3>
+        <?php return;} else { ?>
+        <div class="panel panel-default">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="col-sm-1">ZoneId</th>
+                        <th class="col-md-2">Information</th>
+                        <th class="col-sm-2">User</th>
+                        <th class="col-md-1">ZoneStatus</th>
+                        <th class="col-md-1">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($this->zoneData as $key => $zone) { ?>
+                        <tr>
+                            <td> <?php echo $zone["ZoneId"]; ?> </td>
+                            <td class="text-left">
+                                <strong>Name: &nbsp;</strong> <?php echo $zone["ZoneName"]; ?> <br>
+                                <strong>Type: &nbsp;</strong> <?php echo $zone["ZoneFormat"]; ?> <br>
+                                <strong>Placement: &nbsp;</strong> <?php echo $zone["ZoneWidth"] . "x" . $zone["ZoneHeight"]; ?> <br>
+                            </td>
+                            <td class="text-left">
+                                <div class="txt_bold">
+                                    <?php echo $zone["UserName"]; ?>
+                                </div>
+                                <div class="txt_email">
+                                    <?php echo $zone["UserEmail"]; ?>
+                                </div>
+                            </td>
+                            <td class="text-center text-nowrap"> <?php echo ($zone["ZoneStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($zone["ZoneStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
+                            <td> <?php
+                                $linkUpdateStatus = SITE_URL .'/admin/zone/updatestatus?id=' . $zone["ZoneId"];
+                                if ($zone["ZoneStatus"] != "2"){ ?>
+                                    <a href="<?php echo $linkUpdateStatus . '&status=2';?>"><i class="icon-dollar"></i></a>
+                                <?php } if ($zone["ZoneStatus"] != "1"){ ?>
+                                    <a href="<?php echo $linkUpdateStatus . '&status=1';?>"><i class="icon-pause"></i></a>
+                                <?php } if ($zone["ZoneStatus"] != "0") { ?>
+                                    <a href="<?php echo $linkUpdateStatus . '&status=0';?>"><i class="icon-cancel"></i></a>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <?php } ?>
+</div>

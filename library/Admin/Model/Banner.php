@@ -21,13 +21,13 @@ class Admin_Model_Banner {
         return Admin_Business_Banner::updateBannerInfo($bannerId, $price, $format, $width, $height, $method, $info);
     }
 
-    public static function activateBanner($bannerId)
+    public static function updateBannerStatus($bannerId, $bannerStatus)
     {
-        return Admin_Business_Banner::activateBanner($bannerId);
+        return Admin_Business_Banner::updateBannerStatus($bannerId, $bannerStatus);
     }
 
-    public static function deactivateBanner($bannerId)
+    public static function getBannersByFormat($format)
     {
-        return Admin_Business_Banner::deactivateBanner($bannerId);
+        return Admin_Business_Banner::getBannersByFormat($format);
     }
 }

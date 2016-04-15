@@ -1,5 +1,5 @@
 <div class="container">
-    <h3> Admin-Advertiser Dashboard</h3>
+    <h3> Admin-Banner Dashboard</h3>
 <!--    <a class="btn btn-primary pull-right" href="--><?php //echo SITE_URL .'/advertiser/banner/add'?><!--">New Banner</a>-->
     <hr>
 
@@ -16,7 +16,7 @@
                         <th class="col-sm-2">Creative</th>
                         <th class="col-md-2">Information</th>
                         <th class="col-md-1">BannerStatus</th>
-                        <th class="col-md-1">Actions</th>
+                        <th class="col-md-2">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,7 +43,16 @@
                                 </div>
                             </td>
                             <td class="text-center text-nowrap"> <?php echo ($banner["BannerStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($banner["BannerStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
-                            <td> <?php if ($banner["BannerStatus"] == "1"){ ?><a href="<?php echo SITE_URL .'/admin/banner/approve?id=' . $banner["BannerId"]?>">Approve</a> <?php } ?></td>
+                            <td> <?php
+                                $linkUpdateStatus = SITE_URL .'/admin/banner/updatestatus?id=' . $banner["BannerId"];
+                                if ($banner["BannerStatus"] != "2"){ ?>
+                                    <a title="Approve" href="<?php echo $linkUpdateStatus . '&status=2';?>"><i class="icon-dollar"></i></a>
+                                <?php } if ($banner["BannerStatus"] != "1"){ ?>
+                                    <a title="Pending" href="<?php echo $linkUpdateStatus . '&status=1';?>"><i class="icon-pause"></i></a>
+                                <?php } if ($banner["BannerStatus"] != "0") { ?>
+                                    <a title="Deactivate" href="<?php echo $linkUpdateStatus . '&status=0';?>"><i class="icon-cancel"></i></a>
+                                <?php } ?>
+                            </td>
                         </tr>
                     <?php } ?>
                     </tbody>

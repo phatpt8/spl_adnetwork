@@ -23,6 +23,11 @@ class PublisherController extends Zend_Controller_Action{
                 'id' => $id
             );
             $this->view->assign($view_arr);
+            $layout->fullname = $fullname;
+            $layout->role = $role;
+
+            $result = Admin_Model_Zone::getPublisherZones($id);
+            $this->view->zoneData = $result;
         } else {
             $this->redirect(SITE_URL . '/user/login');
         }

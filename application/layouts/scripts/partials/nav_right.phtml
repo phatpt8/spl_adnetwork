@@ -2,10 +2,9 @@
     <div class="left_col scroll-view" tabindex="5000" style="overflow: hidden; outline: none; cursor: -webkit-grab;">
 
         <div class="navbar nav_title" style="border: 0;z-index: 9">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span> Admin Dashboard Logo </span></a>
+            <a href="<?php echo SITE_URL .'/admin/index'?>" class="site_title"><i class="fa fa-paw"></i> <span> Admin Dashboard Logo </span></a>
         </div>
         <div class="clearfix"></div>
-
 
         <br>
             <div class="sidebar">
@@ -21,24 +20,19 @@
                 <i class="fa fa-times"></i>
             </span>
         </span>
-                    <a href="<?php echo SITE_URL .'/admin/banner'?>" class="list-group-item">
-                        <i class="fa fa-user"></i> Banner <span class="badge">14</span>
-                    </a>
-                    <a href="<?php echo SITE_URL .'/admin/zone'?>" class="list-group-item">
-                        <i class="fa fa-user"></i> Zone <span class="badge">14</span>
-                    </a>
-<!--                    <a href="#" class="list-group-item">-->
-<!--                        <i class="fa fa-user"></i> Advertiser Analytic-->
-<!--                    </a>-->
-<!--                    <a href="#" class="list-group-item">-->
-<!--                        <i class="fa fa-folder-open-o"></i> Publisher Analytic-->
-<!--                    </a>-->
-                    <a href="<?php echo SITE_URL .'/admin/user'?>" class="list-group-item">
-                        <i class="fa fa-user"></i> User
-                    </a>
-<!--                    <a href="#" class="list-group-item">-->
-<!--                        <i class="fa fa-envelope"></i> Lorem ipsum-->
-<!--                    </a>-->
+
+        <a id="anchorIndex" href="<?php echo SITE_URL .'/admin/index'?>" class="list-group-item">
+            <i class="fa fa-history"></i> Index
+        </a>
+        <a href="<?php echo SITE_URL .'/admin/banner'?>" class="list-group-item">
+            <i class="fa fa-folder-open-o"></i> Banner <span class="badge">14</span>
+        </a>
+        <a href="<?php echo SITE_URL .'/admin/zone'?>" class="list-group-item">
+            <i class="fa fa-folder-open-o"></i> Zone <span class="badge">14</span>
+        </a>
+        <a href="<?php echo SITE_URL .'/admin/user'?>" class="list-group-item">
+            <i class="fa fa-user"></i> User
+        </a>
                 </div>
                 </div>
     </div>

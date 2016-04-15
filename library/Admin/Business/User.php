@@ -69,11 +69,11 @@ class Admin_Business_User {
         return $arrResult;
     }
 
-    public static function getUsers() {
+    public static function getUsersExcept($intUserId) {
         $arrResult = array();
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('SELECT * FROM user');
+            $stmt = $storage->query('SELECT * FROM user WHERE UserId != ? AND UserRole != 11', array($intUserId));
             $arrResult = $stmt->fetchAll();
             $stmt->closeCursor();
             unset($stmt);
@@ -85,17 +85,34 @@ class Admin_Business_User {
 
     public static function checkEmail($strUserEmail)
     {
-        $arrResult = array();
+        $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('SELECT UserEmail FROM user WHERE UserEmail=?', array($strUserEmail));
-            $arrResult = $stmt->fetchAll();
+            $stmt = $storage->prepare('SELECT COUNT(UserEmail) FROM user WHERE UserEmail=:email');
+            $stmt->bindParam('email', $strUserEmail, PDO::PARAM_STR);
+            $result = $stmt->fetchColumn(0);
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $arrResult;
+        return $result;
+    }
+
+    public static function checkInfo($strUserName)
+    {
+        $result = 0;
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->prepare('SELECT COUNT(*) FROM user WHERE UserName=:name');
+            $stmt->bindParam('name', $strUserName, PDO::PARAM_STR);
+            $result = $stmt->fetchColumn(0);
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $result;
     }
 
     public static function setNewUser($strUserName, $strUserEmail, $strUserPhone, $strUserPassword, $intUserRole)
@@ -111,6 +128,23 @@ class Admin_Business_User {
             Admin_Global::sendLog($e);
         }
         return $intUserId;
+    }
+
+    public static function updateUserPass($strUserId, $strUserPass)
+    {
+        $result = 0;
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->prepare('UPDATE user SET UserPassword=:pass WHERE UserId=:userId');
+            $stmt->bindParam('userId', $strUserId, PDO::PARAM_STR);
+            $stmt->bindParam('pass', $strUserPass, PDO::PARAM_STR);
+            $result = $stmt->execute();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $result;
     }
 
     public static function updateUserInfo($intUserId, $strUserName, $strUserEmail, $strUserPhone)
@@ -134,8 +168,6 @@ class Admin_Business_User {
 
     public static function updateBalance($intUserId, $plus)
     {
-        // get balance first then add plus
-        // add plus:
         $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
@@ -151,41 +183,37 @@ class Admin_Business_User {
         return $result;
     }
 
-    public static function setAdminUser($intUserId)
+    public static function updateUserRole($intUserId, $intUserRole)
     {
+        $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('UPDATE user SET UserRole=1 WHERE UserId=?', array($intUserId));
+            $stmt = $storage->prepare('UPDATE user SET UserRole=:role WHERE UserId=:userid');
+            $stmt->bindParam('userid', $intUserId, PDO::PARAM_INT);
+            $stmt->bindParam('role', $intUserRole, PDO::PARAM_INT);
+            $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
+        return $result;
     }
 
-    public static function activateUser($intUserId)
+    public static function updateUserStatus($intUserId, $intUserStatus)
     {
+        $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('UPDATE user SET UserStatus=2 WHERE UserId=?', array($intUserId));
-            $stmt->execute();
+            $stmt = $storage->prepare('UPDATE user SET UserStatus=:status WHERE UserId=:userId');
+            $stmt->bindParam('userId', $intUserId, PDO::PARAM_INT);
+            $stmt->bindParam('status', $intUserStatus, PDO::PARAM_INT);
+            $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-    }
-
-    public static function deactivateUser($intUserId)
-    {
-        try {
-            $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('UPDATE user SET UserStatus=0 WHERE UserId=?', array($intUserId));
-            $stmt->execute();
-            $stmt->closeCursor();
-            unset($stmt);
-        } catch (Zend_Db_Exception $e) {
-            Admin_Global::sendLog($e);
-        }
+        return $result;
     }
 }

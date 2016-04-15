@@ -4,33 +4,33 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--[if lt IE 9]>
-    <link href="/css/default/front-end.css" rel="stylesheet">
-    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/html5shiv.min.js"></script>
-    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/respond.min.js"></script>
-    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/jquery-1.11.1.min.js"></script>
-    <![endif]-->
-    <!--[if (gte IE 9) | (!IE)]><!-->
-    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/jquery-2.1.1.min.js"></script>
-    <!--<![endif]-->
+    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/mycustom.js"></script>
+    <link href="<?php echo STATIC_URL; ?>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/front-end.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/mycustom.css" rel="stylesheet">
     <?php
     echo $this->headTitle();
     echo $this->headLink();
     ?>
 </head>
 <body>
-<div id="page-backend" >
-    <div id="top-navigation">
-        <div class="navbar navbar-inverse" >
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#"><img src="<?php echo STATIC_URL; ?>/images/logo-eclick.png" alt="logo"></a>
+<div class="Wrapcontainer" id="page">
+    <div class="wrap-header">
+        <div class="container container_header">
+            <a href="<?php echo SITE_URL . '/user/index' ?>" class="logo"><img style="width: 120px;height: 90px;" src="<?php echo STATIC_URL; ?>/images/peeredgelogotype.png" alt="eClick.vn" title="eClick.vn"></a>
+            <div class="navigation">
+                <div class="btn-toggle-nav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </div>
-    <div id="main-page" style="padding-left:0">
-        <div class="container-fluid">
-            <?php echo $this->layout()->content; ?>
-        </div>
+    <div class="wrap-success">
+        <?php echo $this->layout()->content; ?>
     </div>
 </div>
 <?php echo $this->headScript(); ?>

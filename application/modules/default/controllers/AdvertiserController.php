@@ -23,6 +23,7 @@ class AdvertiserController extends Zend_Controller_Action{
             );
             $this->view->assign($view_arr);
             $layout->fullname = $fullname;
+            $layout->role = $role;
 
             $result = Admin_Model_Banner::getAdvertiserBanners($id);
             $this->view->bannerData = $result;
@@ -30,4 +31,5 @@ class AdvertiserController extends Zend_Controller_Action{
             $this->redirect(SITE_URL . '/user/login');
         }
     }
+
 }

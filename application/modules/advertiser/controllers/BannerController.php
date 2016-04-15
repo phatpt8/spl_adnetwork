@@ -22,6 +22,7 @@ class Advertiser_BannerController extends Zend_Controller_Action{
             );
             $this->view->assign($view_arr);
             $layout->fullname = $fullname;
+            $layout->role = $role;
 
             if ($this->_request->isPost()) {
                 $title = trim(strip_tags($this->_request->getParam('title', null)));

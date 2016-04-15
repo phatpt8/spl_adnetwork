@@ -968,3 +968,6 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
     color: #666;
 }
 
+#anchorIndex {
+    display: none;
+}

@@ -15,9 +15,9 @@ class Admin_Model_User {
         return Admin_Business_User::getActiveUserByRole($role);
     }
 
-    public static function getUsers()
+    public static function getUsersExcept($id)
     {
-        return  Admin_Business_User::getUsers();
+        return  Admin_Business_User::getUsersExcept($id);
     }
 
     public static function getAdvPub()
@@ -35,9 +35,19 @@ class Admin_Model_User {
         return Admin_Business_User::checkEmail($email);
     }
 
+    public static function checkInfo($name)
+    {
+        return Admin_Business_User::checkInfo($name);
+    }
+
     public static function setNewUser($name, $email, $phone, $pass, $role)
     {
         return  Admin_Business_User::setNewUser($name, $email, $phone, $pass, $role);
+    }
+
+    public static function updateUserPass($userId, $newpass)
+    {
+        return  Admin_Business_User::updateUserPass($userId, $newpass);
     }
 
     public static function updateUserInfo($id, $name, $email, $phone)
@@ -45,33 +55,23 @@ class Admin_Model_User {
         return  Admin_Business_User::updateUserInfo($id, $name, $email, $phone);
     }
 
+    public static function updateUserRole($id, $role)
+    {
+        return  Admin_Business_User::updateUserRole($id, $role);
+    }
+
+    public static function updateUserStatus($id, $status)
+    {
+        return  Admin_Business_User::updateUserStatus($id, $status);
+    }
+
     public static function updateBalance($id, $plus)
     {
-        if (filter_var($plus, FILTER_VALIDATE_FLOAT))
+        if (filter_var($plus, FILTER_VALIDATE_INT))
         {
             return  Admin_Business_User::updateBalance($id, $plus);
         }
         return null;
-    }
-
-    public static function setAdminUser($id)
-    {
-        return  Admin_Business_User::setAdminUser($id);
-    }
-
-    public static function unsetAdminUser($id)
-    {
-        return  Admin_Business_User::unsetAdminUser($id);
-    }
-
-    public static function activateUser($id)
-    {
-        return  Admin_Business_User::activateUser($id);
-    }
-
-    public static function deactivateUser($id)
-    {
-        return  Admin_Business_User::deactivateUser($id);
     }
 
 }

@@ -21,13 +21,18 @@ class Admin_Model_Zone {
         return Admin_Business_Zone::updateZoneInfo($id, $width, $height, $name, $format);
     }
 
-    public static function activateZone($id)
+    public static function updateZoneStatus($id, $status)
     {
-        return Admin_Business_Zone::activateZone($id);
+        return Admin_Business_Zone::updateZoneStatus($id, $status);
     }
 
     public static function deactivateZone($id)
     {
         return Admin_Business_Zone::deactivateZone($id);
+    }
+
+    public static function getZoneById($id)
+    {
+        return Admin_Business_Zone::getZoneById($id);
     }
 }

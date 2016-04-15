@@ -6,8 +6,8 @@ class Admin_Business_Zone {
         $arrResult = array();
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->query('SELECT * FROM zone');
-            $arrResult = $stmt->fetch();
+            $stmt = $storage->query('SELECT z.ZoneId, u.UserName, u.UserEmail,z.ZoneName, z.ZoneWidth, z.ZoneHeight, z.ZoneFormat, z.ZoneStatus FROM zone z, user u WHERE z.UserId = u.UserId');
+            $arrResult = $stmt->fetchAll();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
@@ -68,13 +68,14 @@ class Admin_Business_Zone {
         return $result;
     }
 
-    public static function activateZone($intZoneId)
+    public static function updateZoneStatus($intZoneId, $intZoneStatus)
     {
         $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->prepare('UPDATE zone SET ZoneStatus=2 WHERE ZoneId=:zoneId');
+            $stmt = $storage->prepare('UPDATE zone SET ZoneStatus=:status WHERE ZoneId=:zoneId');
             $stmt->bindParam('zoneId', $intZoneId, PDO::PARAM_INT);
+            $stmt->bindParam('status', $intZoneStatus, PDO::PARAM_INT);
             $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
@@ -84,20 +85,21 @@ class Admin_Business_Zone {
         return $result;
     }
 
-    public static function deactivateZone($intZoneId)
+    public static function getZoneById($intZoneId)
     {
-        $result = 0;
+        $arrResult = array();
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->prepare('UPDATE zone SET ZoneStatus=0 WHERE ZoneId=:zoneId');
+            $stmt = $storage->prepare('SELECT * FROM zone WHERE ZoneId = :zoneId AND ZoneStatus = 2');
             $stmt->bindParam('zoneId', $intZoneId, PDO::PARAM_INT);
-            $result = $stmt->execute();
+            $stmt->execute();
+            $arrResult = $stmt->fetch();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $result;
+        return $arrResult;
     }
 
 }

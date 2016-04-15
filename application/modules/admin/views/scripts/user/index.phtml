@@ -16,9 +16,9 @@
         </div>
         <div class="col-sm-2">
             <select class="form-control" name="qs_group" id="qs_group">
-                <option value="0">Tất cả</option>
-                <option value="1">Advertiser</option>
-                <option value="2">Publisher</option>
+                <option value="0"> All</option>
+                <option value="1"> Advertiser</option>
+                <option value="2"> Publisher</option>
                 <option value="3"> Adv &amp; Pub</option>
                 <option value="4"> Admin</option>
             </select>
@@ -56,24 +56,52 @@
                <td> <?php echo $user["UserBalance"]; ?> </td>
                <td>
                    <?php if ($user["UserRole"] == 1) { ?>
-                       <span class="label label-default">Admin</span>
+                       <span class="label label-info">Admin</span>
                    <?php } elseif ($user["UserRole"] == 2) { ?>
                        <span class="label label-default">Publisher</span>
                    <?php } elseif ($user["UserRole"] == 3) { ?>
                        <span class="label label-default">Advertiser</span>
+                   <?php } elseif ($user["UserRole"] == 4) { ?>
+                       <span class="label label-danger">Other</span>
                    <?php } ?>
                </td>
-               <td class="text-center">
+               <td class="text-left">
                    <?php if ($user["UserStatus"] == 1) { ?>
-                       <span class="label label-primary">Active</span>
+                       <span class="label label-success">Active</span>
                    <?php } else { ?>
                        <span class="label label-default">Inactive</span>
                    <?php } ?>
                </td>
                <td>
-                   <a href="#">SetActive</a>
-                   |
-                   <a href="#">SetAdmin</a>
+                    <?php if ($user["UserRole"] != 11) {?>
+                        <?php
+                            $linkUpdateStatus = SITE_URL .'/admin/user/updatestatus?id=' . $user["UserId"];
+                            $linkUpdateRole = SITE_URL .'/admin/user/updaterole?id=' . $user["UserId"];
+                        ?>
+
+                        <?php if ($this->role == 11) {?>
+                            <?php if ($user["UserRole"] == 1) {?>
+                                <a title="Unset Admin" href="<?php echo $linkUpdateRole . '&role=4';?>"><i class="fa fa-trash"></i></a>
+                            <?php }?>
+                        <?php } ?>
+
+                        <?php if ($user["UserRole"] != 1) {?>
+                            <a title="Set Admin" href="<?php echo $linkUpdateRole . '&role=1';?>"><i class="fa fa-street-view"></i></a>
+                        <?php } ?>
+
+                        <?php if ($user["UserStatus"] != 0) {?>
+                            <a title="Deactivate User" href="<?php echo $linkUpdateStatus . '&status=0';?>"><i class="icon-cancel"></i></a>
+                        <?php } elseif ($user["UserStatus"] != 1) {?>
+                            <a title="Activate User" href="<?php echo $linkUpdateStatus . '&status=1';?>"><i class="fa fa-check-square-o"></i></a>
+                        <?php } ?>
+
+                        <?php if ($user["UserRole"] == 4) {?>
+                            <a title="Set Publisher" href="<?php echo $linkUpdateRole . '&role=2';?>">Set Publisher</a>
+                            <a title="Set Advertiser" href="<?php echo $linkUpdateRole . '&role=3';?>">Set Advertiser</a>
+                        <?php } ?>
+
+                        <a title="Reset Password" href="<?php echo SITE_URL . '/admin/user/resetpassword?id=' . $user["UserId"];?>"><i class="fa fa-key"></i></a>
+                    <?php } ?>
                </td>
 
            </tr>

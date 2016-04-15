@@ -8,6 +8,7 @@ class AuthController extends Zend_Controller_Action{
     public function loginAction(){
         $this->view->headTitle()->append('Login');
         $this->_helper->layout->setLayout('login');
+        Zend_Session::destroy();
     }
 
     public function verifyAction(){
@@ -17,6 +18,10 @@ class AuthController extends Zend_Controller_Action{
         if($this->_request->isPost()){
             $userEmail = trim($this->_request->getParam('email', null));
             $userPass = trim($this->_request->getParam('password', null));
+            if (trim($userEmail)==='' &&
+                trim($userPass)==='') {
+                $this->redirect(SITE_URL . '/auth/login?err=validation');
+            }
             $result = Admin_Model_User::getUserByEmailandPassword($userEmail, $userPass);
             if (!empty($result)) {
                 $status = $result["UserStatus"];
@@ -41,7 +46,7 @@ class AuthController extends Zend_Controller_Action{
                     $defaultNamespace->setExpirationSeconds(9000);
                 }
 
-                if ($role == 1) {
+                if ($role == 1 || $role == 11) {
                     $this->redirect(SITE_URL . '/admin/index');
                 } else {
                     $this->redirect(SITE_URL . '/auth/login?err=unaccess');

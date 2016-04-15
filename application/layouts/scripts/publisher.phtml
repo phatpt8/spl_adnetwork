@@ -11,6 +11,8 @@
     <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/mycustom.js"></script>
     <link href="<?php echo STATIC_URL; ?>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo STATIC_URL; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/fontello-embedded.css" rel="stylesheet">
     <link href="<?php echo STATIC_URL; ?>/css/mycustom.css" rel="stylesheet">
 </head>
 
@@ -20,47 +22,39 @@
         <div class="left_col scroll-view" tabindex="5000" style="overflow: hidden; outline: none; cursor: -webkit-grab;">
 
             <div class="navbar nav_title" style="border: 0;">
-                <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span> Admin Dashboard Logo </span></a>
+                <a href="#" class="site_title"><i class="fa fa-paw"></i> <span> Publisher Dashboard Logo </span></a>
             </div>
             <div class="clearfix"></div>
-
-            <!-- menu prile quick info -->
-<!--            <div class="profile">-->
-<!--                <div class="profile_info">-->
-<!--                    <span>Welcome,</span>-->
-<!--                    <h2>--><?php //echo $this->layout()->fullname; ?><!--</h2> <a href="--><?php //echo SITE_URL .'/user/logout'?><!--"> Log out</a>-->
-<!--                </div>-->
-<!--            </div>-->
-            <!-- /menu prile quick info -->
-
             <br>
 
-            <div class="row">
-                <div class="sidebar">
-                    <div class="mini-submenu">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </div>
-                    <div class="list-group">
-        <span class="list-group-item active">
-
-            <span class="pull-right" id="slide-submenu">
-                <i class="fa fa-times"></i>
-            </span>
-        </span>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-comment-o"></i> Thong Ke
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-search"></i> Quan ly quang cao
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-user"></i> Thong tin tai khoan
-                        </a>
-                    </div>
+            <div class="sidebar">
+                <div class="mini-submenu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </div>
+                <div class="list-group">
+                <span class="list-group-item active">
+                    Control Panel
+                    <span class="pull-right" id="slide-submenu">
+                        <i class="fa fa-times"></i>
+                    </span>
+                </span>
+                    <a id="anchorIndex" href="<?php echo SITE_URL .'/publisher/index'?>" class="list-group-item">
+                        <i class="fa fa-history"></i> Index
+                    </a>
+                    <a href="<?php echo SITE_URL .'/publisher/banner/analyze'?>" class="list-group-item">
+                        <i class="fa fa-comment-o"></i> Analyze
+                    </a>
+                    <a href="<?php echo SITE_URL .'/publisher/index'?>" class="list-group-item active">
+                        <i class="fa fa-search"></i> Banner
+                    </a>
+                    <a href="<?php echo SITE_URL .'/publisher/balance'?>" class="list-group-item">
+                        <i class="fa fa-user"></i> Balance Info
+                    </a>
                 </div>
             </div>
+
         </div>
     </div>
 

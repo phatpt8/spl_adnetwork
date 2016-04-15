@@ -1,75 +1,75 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="vi">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="<?php echo STATIC_URL; ?>/images/favicon.ico" type="image/x-icon"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_URL; ?>/js/library/mycustom.js"></script>
+    <link href="<?php echo STATIC_URL; ?>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/adsense.min.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/mycustom.css" rel="stylesheet">
     <?php
     echo $this->headTitle();
     echo $this->headLink();
-    echo $this->headMeta();
     ?>
-
 </head>
 <body>
-<div class="Wrapcontainer">
-    <!--Wrap Top-->
-    <div class="wrap-top width_common">
-        <div class="container container_top">
-            <div class="right_top">
-                <ul>
-<!--                    <li><a target="_blank" href="https://www.youtube.com/channel/UCUPMBIp-lb0Cqm6UBIpisPg" class="social_ico social_youtube"></a></li>-->
-<!--                    <li><a target="_blank" href="https://www.facebook.com/eClickAds" class="social_ico social_facebook"></a></li>-->
-<!--                    <li><a target="_blank" href="https://plus.google.com/u/2/b/111937888998223119809/dashboard/overview" class="social_ico social_google"></a></li>-->
-                </ul>
-            </div>
+<header class="header" role="banner" style="min-height: 0px;">
+    <h1 class="product-logo">
+        <a href="#"><img alt="Ad network" style="width: 88px;height: 66px" src="<?php echo STATIC_URL; ?>/images/peeredgelogotype.png" srcset="<?php echo STATIC_URL; ?>/images/peeredgelogotype.png 2px">
+            <span class="site-name">Ads Solution</span></a>
+    </h1>
+    <nav class="main-navigation ng-scope" data-ng-controller="rs.navigation.NavCtrl as navCtrl" style="transition: top 0s ease 0s; top: 0px;">
+        <h1>
+            Ads Solution
+        </h1>
+        <ul style="padding-right: 93px;">
+            <li class="active">Home
+            </li>
+            <li>
+                <a href="#">Benefits</a>
+            </li>
+            <li>
+                <a href="#">How It Works</a>
+            </li>
+            <li>
+                <a href="#">Success Stories</a>
+            </li>
+            <li>
+                <a href="#">Resources</a>
+            </li>
+            <li>
+                <a href="#">Get Started</a>
+            </li>
+        </ul>
+        <div class="cta cta-wrapper" style="transition: opacity 300ms ease 0s; transform: translate(103px, 0px); top: -48px; opacity: 1;">
+            <a class="adsense-signin-link cta-signin" href="<?php echo SITE_URL . '/user/login'?>">
+                Sign in</a> <a class="cta-signup" href="<?php echo SITE_URL . '/user/register'?>">
+                Sign up</a>
         </div>
-    </div>
-    <!--End Wrap Top-->
-    <!--wrap_logomenu Top-->
-    <div class="wrap_menu width_common">
-        <div class="container container_top">
-            <div class="navigation">
-                <div class="btn-toggle-nav">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+    </nav><button class="nav-toggle-button"><span class="icon-menu-els"><span class="menu-bar"></span> <span class="menu-bar"></span> <span class="menu-bar"></span></span></button>
+</header>
+<div class="main" role="main">
+    <section class="section section-hero section-home-hero">
+        <div class="site-width pos-relative">
+            <div class="cols-row">
+                <div class="section-hero-copy col-5 col-offset-7">
+                    <h1>
+                        Turn your passion into profit.
+                    </h1>
+                    <p class="font-large">
+                        P.AdsSolution is a free, simple way to earn money by placing ads on your website.
+                    </p>
+                    <p>
+                        <a class="button cta-main" href="<?php echo SITE_URL . '/user/register'?>">
+                            Sign up Now</a>
+                    </p>
                 </div>
-                <ul>
-
-                </ul>
             </div>
-            <a href="<?php echo SITE_URL; ?>" class="logo subNavBtn extLink"><img src="<?php echo STATIC_URL; ?>/images/logo.png" alt="" title="" /></a>
-
-
         </div>
-    </div>
-    <!--End wrap_logomenu Top-->
-
-    <!--Wrap Content INDEX-->
-    <div class="wrap-content width_common">
-        <?php echo $this->layout()->content; ?>
-    </div>
-    <!--End Wrap Content INDEX-->
-
-    <!--Wrap Footer-->
-    <div class="wrap-footer width_common">
-        <div class="container container_footer">
-            <div class="right_top social_footer">
-                <ul>
-<!--                    <li><a target="_blank" href="https://www.youtube.com/channel/UCUPMBIp-lb0Cqm6UBIpisPg" class="social_ico social_youtube"></a></li>-->
-<!--                    <li><a target="_blank" href="https://www.facebook.com/eClickAds" class="social_ico social_facebook"></a></li>-->
-<!--                    <li><a target="_blank" href="https://plus.google.com/u/2/b/111937888998223119809/dashboard/overview" class="social_ico social_google"></a></li>-->
-                </ul>
-            </div>
-            <p><span>Copyright © 2015 eClick. All rights reserved. Powered by &nbsp;&nbsp;</span><img src="<?php echo STATIC_URL; ?>/images/logo_footer.png" alt="" /></p>
-        </div>
-    </div>
-    <!--End Wrap Footer-->
-    <div class="block_close_menu"></div>
-
+    </section>
 </div>
 </body>
 </html>

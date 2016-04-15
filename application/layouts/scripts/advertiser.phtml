@@ -12,6 +12,7 @@
     <link href="<?php echo STATIC_URL; ?>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo STATIC_URL; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="<?php echo STATIC_URL; ?>/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo STATIC_URL; ?>/css/fontello-embedded.css" rel="stylesheet">
     <link href="<?php echo STATIC_URL; ?>/css/mycustom.css" rel="stylesheet">
 </head>
 
@@ -21,19 +22,9 @@
         <div class="left_col scroll-view" tabindex="5000" style="overflow: hidden; outline: none; cursor: -webkit-grab;">
 
             <div class="navbar nav_title" style="border: 0;">
-                <a href="#" class="site_title"><i class="fa fa-paw"></i> <span> Admin Dashboard Logo </span></a>
+                <a href="#" class="site_title"><i class="fa fa-paw"></i> <span> Advertiser Dashboard Logo </span></a>
             </div>
             <div class="clearfix"></div>
-
-            <!-- menu prile quick info -->
-<!--            <div class="profile">-->
-<!--                <div class="profile_info">-->
-<!--                    <span>Welcome,</span>-->
-<!--                    <h2> --><?php //echo $this->layout()->fullname; ?><!-- </h2>  <a href="--><?php //echo SITE_URL .'/user/logout'?><!--"> Log out</a>-->
-<!--                </div>-->
-<!--            </div>-->
-            <!-- /menu prile quick info -->
-
             <br>
 
                 <div class="sidebar">
@@ -49,6 +40,9 @@
                         <i class="fa fa-times"></i>
                     </span>
                 </span>
+                        <a id="anchorIndex" href="<?php echo SITE_URL .'/advertiser/index'?>" class="list-group-item">
+                            <i class="fa fa-history"></i> Index
+                        </a>
                         <a href="<?php echo SITE_URL .'/advertiser/banner/analyze'?>" class="list-group-item">
                             <i class="fa fa-comment-o"></i> Analyze
                         </a>
