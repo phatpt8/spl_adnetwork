@@ -78,6 +78,12 @@
         }
     };
 
+    function sendLog(url, callback) {
+        var image = new Image(1, 1);
+        image.onload = callback;
+        image.src = url;
+    }
+
     var parseObj = function (obj, callback) {
         for (var row in obj) Object.prototype.hasOwnProperty.call(obj, row) && callback.call(null, obj[row], row, obj)
     };
@@ -426,6 +432,48 @@
         return strLogo + strPspl;
     };
 
+    EventEmitter.on('TraceImpression', function(data, callback) {
+        if (!data.banners && !data.banners[0]) return;
+        callback = callback || undefined;
+        var banner = data.banners[0];
+        var url = psplAdrequest + '/impression?';
+
+        var imp = [];
+        imp.push("id=" + (data.zoneId ? data.zoneId : win.pspl_zone));
+        imp.push("bid=" + (banner.BannerId ? banner.BannerId : 888));
+        imp.push("url=" + encodeURIComponent(_topWin.document.location.href));
+
+        sendLog(url + imp.join("&"), callback)
+    });
+
+    var trueviewLogged = false;
+    var detectZoneViewed = function(elm, data, callback) {
+        if (!data.banners && !data.banners[0]) return;
+        var html = _topWin.document.documentElement,
+            rect,
+            banner = data.banners[0],
+            url = psplAdrequest + '/trueview?',
+            imp = [];
+
+        var padding = parseInt(win.pspl_ad_height, 10) / 2;
+
+        try {
+            rect = elm.getBoundingClientRect();
+        } catch (e) {}
+
+        var seen = (rect != null) && rect.bottom >= padding && rect.right >= padding && rect.top <= html.clientHeight - padding && rect.left <= html.clientWidth - padding;
+
+        if (seen && !trueviewLogged) {
+            trueviewLogged = true;
+            callback = callback || undefined;
+            imp.push("id=" + (data.zoneId ? data.zoneId : win.pspl_zone));
+            imp.push("bid=" + (banner.BannerId ? banner : 888));
+            imp.push("url=" + encodeURIComponent(_topWin.document.location.href));
+
+            sendLog(url + imp.join("&"), callback)
+        }
+    };
+
     var polyfillWriteAd = function(frame, adData, pspl) {
         var frameWin = frame.contentWindow;
         var frameDoc = frameWin.document;
@@ -447,10 +495,17 @@
             frameWin.location.replace("javascript:" + resolveContent(content));
         }
 
+        EventEmitter.emit("TraceImpression", adData);
         addEvent(window, "load", function() {
             EventEmitter.emit('logoAnimation');
             EventEmitter.emit('callVideoAd');
+        });
+
+        detectZoneViewed(frame, adData);
+        addEvent(_topWin, "scroll", function(){
+            detectZoneViewed(frame, adData);
         })
+
     };
 
     function closeFrameDocument(w) {

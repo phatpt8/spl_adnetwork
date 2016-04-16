@@ -12,7 +12,7 @@ class Advertiser_BannerController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if ($condition != "logged" && $role != 3) {
+            if (!isset($session) || $condition != "logged" && $role != 3) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 
@@ -67,7 +67,7 @@ class Advertiser_BannerController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if ($condition != "logged" && $role != 3) {
+            if (!isset($session) || $role != 3) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 
@@ -119,6 +119,22 @@ class Advertiser_BannerController extends Zend_Controller_Action{
         }
 
 
+    }
+
+    public function updatestatusAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        if($this->_request->isGet()) {
+            $bannerid = trim($this->_request->getParam('id', null));
+            $status = trim($this->_request->getParam('status', null));
+            $result = Admin_Model_Banner::updateBannerStatus($bannerid, $status);
+            if ($result != 0) {
+                $this->redirect(SITE_URL . '/advertiser/banner');
+            } else {
+                $this->redirect(SITE_URL . '/advertiser/banner?err=updatestatusFailed');
+            }
+        }
     }
 
     public function analyzeAction() {

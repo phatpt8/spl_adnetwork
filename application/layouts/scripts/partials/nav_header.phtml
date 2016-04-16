@@ -11,6 +11,6 @@
         </li>
 
         <li style="margin-right: 10px;"><a href="<?php echo SITE_URL .'/user/forgotpass'?>">Change Password</a></li>
-        <li style="margin-right: 10px;"><a href="<?php echo SITE_URL .'/' . ($this->layout()->role == 1 ? 'auth' : 'user') .'/logout'?>">Log out</a></li>
+        <li style="margin-right: 10px;"><a href="<?php echo SITE_URL .'/' . ($this->layout()->role == 1 || $this->layout()->role == 11 ? 'auth' : 'user') .'/logout'?>">Log out</a></li>
     </ul>
 </div><!--/.nav-collapse -->

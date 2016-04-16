@@ -36,7 +36,17 @@
                         <div class="txt_email"> <?php echo $bInfo->url; ?></div>
                 </td>
                 <td> <?php echo ($banner["BannerStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($banner["BannerStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
-                <td><a href="<?php echo SITE_URL .'/advertiser/banner/edit/?id=' . $banner["BannerId"] . '&price=' . $banner["BannerPrice"] . '&format=' . $banner["BannerPrice"] . '&width=' . $banner["BannerWidth"] . '&height=' . $banner["BannerHeight"] . '&method=' . $banner["BannerMethod"] . '&title=' .  $bInfo->title . '&file=' .  $bInfo->file . '&url=' .  urlencode($bInfo->url)?>">Edit</a></td>
+                <td>
+                    <a href="<?php echo SITE_URL .'/advertiser/banner/edit/?id=' . $banner["BannerId"] . '&price=' . $banner["BannerPrice"] . '&format=' . $banner["BannerPrice"] . '&width=' . $banner["BannerWidth"] . '&height=' . $banner["BannerHeight"] . '&method=' . $banner["BannerMethod"] . '&title=' .  $bInfo->title . '&file=' .  $bInfo->file . '&url=' .  urlencode($bInfo->url)?>"><i class="fa fa-pencil"></i></a>
+                    <?php
+                    $linkUpdateStatus = SITE_URL .'/advertiser/banner/updatestatus?id=' . $banner["BannerId"];
+                    ?>
+                    <?php if ($banner["BannerStatus"] != 0) {?>
+                        <a title="Deactivate Banner" href="<?php echo $linkUpdateStatus . '&status=0';?>"><i class="icon-cancel"></i></a>
+                    <?php } elseif ($banner["BannerStatus"] != 1) {?>
+                        <a title="Activate Banner" href="<?php echo $linkUpdateStatus . '&status=1';?>"><i class="fa fa-check-square-o"></i></a>
+                    <?php } ?>
+                </td>
             </tr>
         <?php } ?>
         </tbody>

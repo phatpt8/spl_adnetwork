@@ -5,4 +5,10 @@ class Admin_Model_Impression {
     {
         return Admin_Business_Impression::getImpressionsCount();
     }
+
+    public static function insertImpression($zoneId, $bannerId, $url)
+    {
+        return Admin_Business_Impression::insertImpression($zoneId, $bannerId, $url);
+    }
+
 }

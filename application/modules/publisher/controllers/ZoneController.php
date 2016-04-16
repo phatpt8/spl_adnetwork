@@ -13,7 +13,7 @@ class Publisher_ZoneController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if ($condition != "logged" && $role != 2) {
+            if (!isset($session) || $role != 2) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 
@@ -59,7 +59,7 @@ class Publisher_ZoneController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if ($condition != "logged" && $role != 2) {
+            if (!isset($session) || $role != 2) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 
@@ -96,7 +96,21 @@ class Publisher_ZoneController extends Zend_Controller_Action{
         } else {
             $this->redirect(SITE_URL . '/user/login');
         }
+    }
 
+    public function updatestatusAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
 
+        if($this->_request->isGet()) {
+            $zoneid = trim($this->_request->getParam('id', null));
+            $status = trim($this->_request->getParam('status', null));
+            $result = Admin_Model_Zone::updateZoneStatus($zoneid, $status);
+            if ($result != 0) {
+                $this->redirect(SITE_URL . '/publisher/zone');
+            } else {
+                $this->redirect(SITE_URL . '/publisher/zone?err=updatestatusFailed');
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ class Admin_IndexController extends Zend_Controller_Action{
         $this->view->headTitle()->append(' Admin ');
         $this->_helper->layout->setLayout('admin');
         $layout = $this->_helper->layout();
-        Zend_Session::destroy();
+
         $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
         if(isset($defaultNamespace)) {
             $session = $defaultNamespace->newsession;
@@ -12,8 +12,7 @@ class Admin_IndexController extends Zend_Controller_Action{
             $role =  $session["activeRole"];
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
-
-            if ($condition != "logged" && ($role == 2 || $role == 3)) {
+            if (!isset($session) || $role == 2 || $role == 3) {
                 $this->redirect(SITE_URL . '/auth/login');
             }
 

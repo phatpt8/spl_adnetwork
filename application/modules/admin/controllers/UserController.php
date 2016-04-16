@@ -13,7 +13,7 @@ class Admin_UserController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if ($condition != "logged" && ($role == 2 || $role == 3)) {
+            if (!isset($session) || $role == 2 || $role == 3) {
                 $this->redirect(SITE_URL . '/auth/login');
             }
 
@@ -28,7 +28,6 @@ class Admin_UserController extends Zend_Controller_Action{
 
             $result = Admin_Model_User::getUsersExcept($id);
             $this->view->userData = $result;
-//            echo '<pre>';print_r($result);die;
         } else {
             $this->redirect(SITE_URL . '/auth/login');
         }

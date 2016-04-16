@@ -8,7 +8,6 @@ class AuthController extends Zend_Controller_Action{
     public function loginAction(){
         $this->view->headTitle()->append('Login');
         $this->_helper->layout->setLayout('login');
-        Zend_Session::destroy();
     }
 
     public function verifyAction(){
@@ -35,16 +34,15 @@ class AuthController extends Zend_Controller_Action{
                 }
 
                 $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
-                if (!isset($defaultNamespace->newsession)) {
-                    $arrSession = array(
-                        'condition' => 'logged',
-                        'activeId' => $userid,
-                        'activeRole' => $role,
-                        'activeFullname' => $fullname
-                    );
-                    $defaultNamespace->newsession = $arrSession;
-                    $defaultNamespace->setExpirationSeconds(9000);
-                }
+                unset($defaultNamespace->newsession);
+                $arrSession = array(
+                    'condition' => 'logged',
+                    'activeId' => $userid,
+                    'activeRole' => $role,
+                    'activeFullname' => $fullname
+                );
+                $defaultNamespace->newsession = $arrSession;
+                $defaultNamespace->setExpirationSeconds(9000);
 
                 if ($role == 1 || $role == 11) {
                     $this->redirect(SITE_URL . '/admin/index');

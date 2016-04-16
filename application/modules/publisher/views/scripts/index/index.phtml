@@ -9,13 +9,14 @@
     <table class="table table-bordered text-right">
         <thead>
         <tr>
-            <th>zoneId</th>
+            <th>ZoneId</th>
             <th>ZoneName</th>
-            <th>zoneCreateTime</th>
-            <th>zoneFormat</th>
-            <th>zoneWidth</th>
-            <th>zoneHeight</th>
-            <th>zoneStatus</th>
+            <th>ZoneCreateTime</th>
+            <th>ZoneFormat</th>
+            <th>ZoneWidth</th>
+            <th>ZoneHeight</th>
+            <th>Embed Code</th>
+            <th>ZoneStatus</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -28,6 +29,7 @@
                 <td> <?php echo $zone["ZoneFormat"]; ?> </td>
                 <td> <?php echo $zone["ZoneWidth"]; ?> </td>
                 <td> <?php echo $zone["ZoneHeight"]; ?> </td>
+                <td> <a href="" data-zone-id="<?php echo $zone["ZoneId"]; ?>" data-toggle="modal" data-target="#myModal" class="btn btn-default btn-get-embed-code">Get code</a> </td>
                 <td> <?php echo ($zone["ZoneStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($zone["ZoneStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
                 <td><a href="<?php echo SITE_URL .'/publisher/zone/edit/?id=' . $zone["ZoneId"] . '&name=' . $zone["ZoneName"] . '&width=' . $zone["ZoneWidth"] . '&height=' . $zone["ZoneHeight"] . '&format=' . $zone["ZoneFormat"] ?>">Edit</a></td>
             </tr>
@@ -35,4 +37,35 @@
         </tbody>
     </table>
     <?php } ?>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Copy scripts onto website to play ads</h4>
+            </div>
+            <div class="modal-body">
+                To <code> &lt;head&gt; </code> tag:
+                <br>
+                <code>
+                    &lt;script src="//localhost:63342/spl_adnetwork/static/js/embed/js/adsbyphamtrongphat.js" async=""&gt;&lt;/script&gt;
+                </code>
+                <br>
+                And to where put ads:
+                <br>
+                <code>
+                    &lt;ins class="adsbyeclick" data-zone="" data-width="" data-height=""&gt;&lt;/ins&gt;<br>
+                    &lt;script&gt; (adsbypspl = window.adsbypspl || []).push({}); &lt;/script&gt;
+                </code>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
 </div>

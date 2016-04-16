@@ -12,7 +12,7 @@ class Publisher_IndexController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if ($condition != "logged" && $role != 2) {
+            if (!isset($session) || $role != 2) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 

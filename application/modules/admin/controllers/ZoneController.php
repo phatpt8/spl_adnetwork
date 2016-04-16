@@ -13,7 +13,7 @@ class Admin_ZoneController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if ($condition != "logged" && ($role == 2 || $role == 3)) {
+            if (!isset($session) || $role == 2 || $role == 3) {
                 $this->redirect(SITE_URL . '/auth/login?err=unaccess');
             }
 

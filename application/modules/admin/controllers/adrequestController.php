@@ -13,7 +13,7 @@ class Admin_AdrequestController extends Zend_Controller_Action {
             }
 
             $suitBanners = array();
-            $zoneData = Admin_Model_Zone::getZoneById($zoneId); // GET APPROVED ZONE !!!!!!!!!!!
+            $zoneData = Admin_Model_Zone::getZoneById($zoneId);
             if (!empty($zoneData)) {
                 $zoneFormat = $zoneData["ZoneFormat"];
                 $zoneWidth = $zoneData["ZoneWidth"];
@@ -54,9 +54,34 @@ class Admin_AdrequestController extends Zend_Controller_Action {
             $bannerId = trim($this->_request->getParam('bid', null));
             $redirect = trim($this->_request->getParam('redirect', null));
 
-            $result = Admin_Model_Click::insertNewClick($price, $url, $bannerId);
-//            if ()
+            $result = Admin_Model_Click::insertClick($price, $url, $bannerId);
             $this->redirect($redirect);
+        }
+    }
+
+    public function trueviewAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        if($this->_request->isGet()) {
+            $zoneid = trim($this->_request->getParam('id', null));
+            $bannerid = trim($this->_request->getParam('bid', null));
+            $url = trim($this->_request->getParam('url', null));
+
+            $result = Admin_Model_Trueview::insertTrueview($zoneid, $bannerid, $url);
+        }
+    }
+
+    public function impressionAction() {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        if($this->_request->isGet()) {
+            $zoneid = trim($this->_request->getParam('id', null));
+            $bannerid = trim($this->_request->getParam('bid', null));
+            $url = trim($this->_request->getParam('url', null));
+
+            $result = Admin_Model_Impression::insertImpression($zoneid, $bannerid, $url);
         }
     }
 }

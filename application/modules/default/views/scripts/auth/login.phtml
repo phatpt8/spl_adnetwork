@@ -1,10 +1,9 @@
-
 <!-- SHOW content -->
 <div class="wrap-form login-form" style="max-width:400px; margin:0 auto; border: 1px solid #ddd;padding:20px">
     <form action="<?php echo SITE_URL .'/auth/verify'?>" method="POST" role="form" id="form-login" autocomplete="off">
         <input type="hidden"  id="redirect" name="redirect" value="<?php echo $this->redirect; ?>" >
         <legend>
-            Đăng nhập
+            Login
             <div class="clearfix"></div>
         </legend>
         <?php if (isset($this->error) && !empty($this->error)) { ?>
@@ -22,12 +21,12 @@
         </div>
         <div class="form-group">
             <div class="input-group">
-                <input type="password" class="form-control" id="password" name="password" value="" placeholder="Mật khẩu">
+                <input type="password" class="form-control" id="password" name="password" value="" placeholder="password">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
             </div>
         </div>
         <div class="text-right">
-            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+            <button type="submit" class="btn btn-primary">Login</button>
         </div>
     </form>
 </div>

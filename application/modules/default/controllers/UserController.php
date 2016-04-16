@@ -33,17 +33,17 @@ class UserController extends Zend_Controller_Action{
                     return;
                 }
 
+
                 $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
-                if (!isset($defaultNamespace->newsession)) {
-                    $arrSession = array(
-                        'condition' => 'logged',
-                        'activeId' => $userid,
-                        'activeRole' => $role,
-                        'activeFullname' => $fullname
-                    );
-                    $defaultNamespace->newsession = $arrSession;
-                    $defaultNamespace->setExpirationSeconds(9000);
-                }
+                unset($defaultNamespace->newsession);
+                $arrSession = array(
+                    'condition' => 'logged',
+                    'activeId' => $userid,
+                    'activeRole' => $role,
+                    'activeFullname' => $fullname
+                );
+                $defaultNamespace->newsession = $arrSession;
+                $defaultNamespace->setExpirationSeconds(9000);
 
                 if ($role == 2) {
                     $this->redirect(SITE_URL . '/publisher/index');
@@ -76,7 +76,7 @@ class UserController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if ($condition != "logged" && ($role == 2 || $role == 3)) {
+            if (!isset($session) || $role == 2 || $role == 3) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 

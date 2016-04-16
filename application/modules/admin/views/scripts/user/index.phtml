@@ -29,7 +29,9 @@
 
     </div>
 </div>
-
+<?php if (empty($this->userData)) { ?>
+    <h3>No User found!</h3>
+    <?php return;} ?>
 <table class="table table-bordered">
     <thead>
     <tr>

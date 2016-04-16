@@ -103,5 +103,4 @@ class Admin_Business_Banner {
         }
         return $arrResult;
     }
-
 }
