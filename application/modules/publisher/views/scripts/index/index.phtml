@@ -29,7 +29,7 @@
                 <td> <?php echo $zone["ZoneFormat"]; ?> </td>
                 <td> <?php echo $zone["ZoneWidth"]; ?> </td>
                 <td> <?php echo $zone["ZoneHeight"]; ?> </td>
-                <td> <a href="" data-zone-id="<?php echo $zone["ZoneId"]; ?>" data-toggle="modal" data-target="#myModal" class="btn btn-default btn-get-embed-code">Get code</a> </td>
+                <td> <a href="" data-zone-id="<?php echo $zone["ZoneId"]; ?>" data-zone-width="<?php echo $zone["ZoneWidth"]; ?>" data-zone-height="<?php echo $zone["ZoneHeight"]; ?>" data-toggle="modal" data-target="#getcodeModal" class="btn btn-default btn-get-embed-code">Get code</a> </td>
                 <td> <?php echo ($zone["ZoneStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($zone["ZoneStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
                 <td><a href="<?php echo SITE_URL .'/publisher/zone/edit/?id=' . $zone["ZoneId"] . '&name=' . $zone["ZoneName"] . '&width=' . $zone["ZoneWidth"] . '&height=' . $zone["ZoneHeight"] . '&format=' . $zone["ZoneFormat"] ?>">Edit</a></td>
             </tr>
@@ -39,7 +39,7 @@
     <?php } ?>
 </div>
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="getcodeModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -52,13 +52,13 @@
                 To <code> &lt;head&gt; </code> tag:
                 <br>
                 <code>
-                    &lt;script src="//localhost:63342/spl_adnetwork/static/js/embed/js/adsbyphamtrongphat.js" async=""&gt;&lt;/script&gt;
+                    &lt;script src="http://localhost/spl_adnetwork/static/js/embed/js/adsbyphamtrongphat.js" async=""&gt;&lt;/script&gt;
                 </code>
                 <br>
                 And to where put ads:
                 <br>
-                <code>
-                    &lt;ins class="adsbyeclick" data-zone="" data-width="" data-height=""&gt;&lt;/ins&gt;<br>
+                <code id="embedZone">
+                    &lt;ins class="adsbypspl" data-zone="" data-ad-width="" data-ad-height=""&gt;&lt;/ins&gt;<br>
                     &lt;script&gt; (adsbypspl = window.adsbypspl || []).push({}); &lt;/script&gt;
                 </code>
             </div>

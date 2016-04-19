@@ -27,4 +27,8 @@ $(function(){
         }, 7000)
     }
 
+    $(".btn-get-embed-code").on("click", function() {
+        console.log($("#getcodeModal").find("code#embedZone").text('<ins class="adsbypspl" data-zone="' + this.getAttribute("data-zone-id") + '" data-ad-width="' + this.getAttribute("data-zone-width") + '" data-ad-height="' + this.getAttribute("data-zone-height") + '"></ins><script> (adsbypspl = window.adsbypspl || []).push({}); </script>'))
+    })
+
 });
