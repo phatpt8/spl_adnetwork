@@ -17,6 +17,22 @@ class Admin_Business_User {
         return $arrResult;
     }
 
+    public static function getBalance($intUserId) {
+        $arrResult = array();
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->prepare('SELECT UserBalance FROM user WHERE UserId = :userId ');
+            $stmt->bindParam('userId', $intUserId, PDO::PARAM_INT);
+            $stmt->execute();
+            $arrResult = $stmt->fetch();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $arrResult;
+    }
+
     public static function getUserByEmailandPassword($strUserEmail, $strUserPassword) {
         $arrResult = array();
         try {
@@ -88,9 +104,9 @@ class Admin_Business_User {
         $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->prepare('SELECT COUNT(UserEmail) FROM user WHERE UserEmail=:email');
+            $stmt = $storage->prepare('SELECT COUNT(*) FROM user WHERE UserEmail=:email');
             $stmt->bindParam('email', $strUserEmail, PDO::PARAM_STR);
-            $result = $stmt->fetchColumn(0);
+            $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
@@ -104,9 +120,9 @@ class Admin_Business_User {
         $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->prepare('SELECT COUNT(*) FROM user WHERE UserName=:name');
-            $stmt->bindParam('name', $strUserName, PDO::PARAM_STR);
-            $result = $stmt->fetchColumn(0);
+            $stmt = $storage->prepare('SELECT COUNT(*) FROM user WHERE UserName=:uname');
+            $stmt->bindParam('uname', $strUserName, PDO::PARAM_STR);
+            $result = $stmt->execute();
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {

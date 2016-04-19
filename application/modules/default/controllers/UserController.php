@@ -100,6 +100,7 @@ class UserController extends Zend_Controller_Action{
                     trim($role)==='') {
                     return false;
                 }
+
                 if (trim($newpass) != trim($confirmpass)) {
                     $this->redirect(SITE_URL . '/user/forgotpass?status=confirmFailed');
                 } else {

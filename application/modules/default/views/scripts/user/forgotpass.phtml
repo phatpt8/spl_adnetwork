@@ -4,21 +4,30 @@
             <div class="form">
                 <div class="form_log">
                     <div class="content_form">
-                        <form action="" id="form_forgotpass" autocomplete="off" method="POST" role="form" novalidate="novalidate">
+                        <form action="<?php echo SITE_URL .'/user/forgotpass'?>" id="form_forgotpass" autocomplete="off" method="POST" role="form" novalidate="novalidate">
                             <div class="inner_form">
-                                <p class="tit_form">Quên mật khẩu</p>
+                                <p class="tit_form">Create new password</p>
                                 <ul class="input_box">
                                     <li><label class="ico_email"></label>
                                         <input type="text" class="input_contact" id="email" name="email" placeholder="Email">
                                     </li>
-                                    <label id="email-error" class="error" for="email"></label>
-                                    <li class="capcha_li">
-                                        <label class="capcha" id="forgot_captcha"><img width="150" height="30" alt="" src="https://iad.eclick.vn/captcha/fb3f46f29f952a6718019a6e901cf93b.png"><input type="hidden" name="idcaptcha" value="fb3f46f29f952a6718019a6e901cf93b"><a href="javascript:;" class="reload_capcha"></a></label>
-                                        <input type="text" class="input_contact input_last" id="captcha" name="captcha" placeholder="Mã an toàn">
-                                    </li>
-                                    <label id="captcha-error" class="error" for="captcha"></label>
                                 </ul>
-                                <a href="javascript:;" id="click_forgotpass" class="form_btn">Xác nhận</a>
+                                <ul class="input_box">
+                                    <li><label class="ico_email"></label>
+                                        <input type="text" class="input_contact" id="name" name="name" placeholder="Registered Name">
+                                    </li>
+                                </ul>
+                                <ul class="input_box">
+                                    <li><label class="ico_email"></label>
+                                        <input type="password" class="input_contact" id="newpass" name="newpass" placeholder="New password">
+                                    </li>
+                                </ul>
+                                <ul class="input_box">
+                                    <li><label class="ico_email"></label>
+                                        <input type="password" class="input_contact" id="confirmPassword" name="confirmPassword" placeholder="Confirm password">
+                                    </li>
+                                </ul>
+                                <button type="submit" id="submit" class="form_btn btn btn-primary">Confirm</button>
                             </div>
                         </form>
                     </div>

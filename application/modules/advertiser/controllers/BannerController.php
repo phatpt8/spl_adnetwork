@@ -12,7 +12,7 @@ class Advertiser_BannerController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if (!isset($session) || $condition != "logged" && $role != 3) {
+            if (!isset($session) || $role != 3) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 

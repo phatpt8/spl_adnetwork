@@ -5,6 +5,11 @@ class Admin_Model_User {
         return Admin_Business_User::getUserById($id);
     }
 
+    public static function getBalance($id)
+    {
+        return Admin_Business_User::getBalance($id);
+    }
+
     public static function getUserByEmailandPassword($email, $pass)
     {
         return Admin_Business_User::getUserByEmailandPassword($email, $pass);

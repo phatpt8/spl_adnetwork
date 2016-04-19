@@ -26,7 +26,7 @@ class Publisher_ZoneController extends Zend_Controller_Action{
             $layout->role = $role;
 
             if ($this->_request->isPost()) {
-                $title = trim(strip_tags($this->_request->getParam('title', null)));
+                $title = trim(strip_tags($this->_request->getParam('name', null)));
                 $format = trim(strip_tags($this->_request->getParam('format', null)));
                 $placement = trim(strip_tags($this->_request->getParam('placement', null)));
                 list($width, $height) = explode('x',$placement);
