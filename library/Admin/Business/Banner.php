@@ -33,6 +33,38 @@ class Admin_Business_Banner {
         return $arrResult;
     }
 
+    public static function getBannerTrueviewAnalyze($intUserId)
+    {
+        $arrResult = array();
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->prepare('SELECT b.BannerId, b.BannerFormat, b.BannerPrice, b.BannerWidth, b.BannerHeight, b.BannerMethod, b.BannerCreateTimestamp, COUNT(tv.TrueviewId) as "Trueview" FROM banner b, trueview tv WHERE b.BannerId = tv.BannerId AND b.UserId = :userId');
+            $stmt->bindParam('userId', $intUserId, PDO::PARAM_INT);
+            $stmt->execute();
+            $arrResult = $stmt->fetchAll();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $arrResult;
+    }
+
+    public static function countPendingBanners()
+    {
+        $result = 0;
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('SELECT COUNT(*) FROM banner WHERE BannerStatus=1');
+            $result = $stmt->fetchColumn(0);
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $result;
+    }
+
     public static function createNewBanner($intUserId, $intBannerPrice, $intBannerFormat, $intBannerWidth, $intBannerHeight, $intBannerMethod, $strBannerInfo)
     {
         $intBannerId = 0;

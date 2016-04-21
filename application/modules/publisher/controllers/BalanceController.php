@@ -1,10 +1,10 @@
 <?php
-class Advertiser_BalanceController extends Zend_Controller_Action{
-    public function topupAction() {
-        $this->view->headTitle()->append('Topup account');
-        $this->_helper->layout->setLayout('advertiser');
-        $layout = $this->_helper->layout();
+class Publisher_BalanceController extends Zend_Controller_Action{
 
+    public function indexAction() {
+        $this->view->headTitle()->append('Publisher Page');
+        $this->_helper->layout->setLayout('publisher');
+        $layout = $this->_helper->layout();
         $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
         if(isset($defaultNamespace)) {
             $session = $defaultNamespace->newsession;
@@ -13,7 +13,7 @@ class Advertiser_BalanceController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if (!isset($session) || $role != 3) {
+            if (!isset($session) || $role != 2) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 
@@ -25,20 +25,6 @@ class Advertiser_BalanceController extends Zend_Controller_Action{
             $layout->fullname = $fullname;
             $layout->role = $role;
 
-            if ($this->_request->isPost()) {
-                $amount = trim(strip_tags($this->_request->getParam('amount', null)));
-                if (trim($amount)==='' || trim($id)==='') {
-                    return false;
-                }
-
-                $result = Admin_Model_User::updateBalance($id, intval($amount));
-                if ($result) {
-                    $this->redirect(SITE_URL . '/advertiser/index?status=topupsuccess');
-                } else {
-                    $this->redirect(SITE_URL . '/advertiser/index?err=topupfailed');
-                }
-            }
-
             if (trim($id)==='') {
                 return false;
             }
@@ -47,7 +33,7 @@ class Advertiser_BalanceController extends Zend_Controller_Action{
 
             $this->view->headScript()->appendFile(STATIC_URL . '/js/library/jquery.countTo.js');
         } else {
-            $this->redirect(SITE_URL . '/auth/login');
+            $this->redirect(SITE_URL . '/user/login');
         }
     }
 }

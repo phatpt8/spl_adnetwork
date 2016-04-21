@@ -1,7 +1,7 @@
-<div class="panel panel-default">
+<div class="panel panel-default col-lg-10">
 
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="icon-credit-card"></i>&nbsp;Quick Topup Balance <?php if (isset($this->activeBalance)) { echo ', currently having <b>' . $this->activeBalance["UserBalance"] . '</b> VND in account'; }?></h3>
+        <h3 class="panel-title"><i class="icon-credit-card"></i>&nbsp;Quick Topup Balance <?php if (isset($this->activeBalance)) { echo ', currently having <b class="bold_red" id="lbl_navbar_balance">' . $this->activeBalance["UserBalance"] . '</b> VND in account'; }?></h3>
     </div>
 
     <div class="panel-body">
@@ -23,7 +23,7 @@
                 <label for="" class="control-label col-sm-2">Amount: </label>
 
                 <div class="col-sm-6">
-                    <input type="text" name="amount" maxlength="100" id="amount" class="form-control">
+                    <input type="number" name="amount" maxlength="100" id="amount" class="form-control">
                 </div>
             </div>
             <div class="form-group">

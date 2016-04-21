@@ -10,13 +10,13 @@
         <thead>
         <tr>
             <th>ZoneId</th>
-            <th>ZoneName</th>
-            <th>ZoneCreateTime</th>
-            <th>ZoneFormat</th>
-            <th>ZoneWidth</th>
-            <th>ZoneHeight</th>
+            <th>Name</th>
+            <th>CreateTime</th>
+            <th>Format</th>
+            <th>Width</th>
+            <th>Height</th>
             <th>Embed Code</th>
-            <th>ZoneStatus</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -31,7 +31,17 @@
                 <td> <?php echo $zone["ZoneHeight"]; ?> </td>
                 <td> <a href="" data-zone-id="<?php echo $zone["ZoneId"]; ?>" data-zone-width="<?php echo $zone["ZoneWidth"]; ?>" data-zone-height="<?php echo $zone["ZoneHeight"]; ?>" data-toggle="modal" data-target="#getcodeModal" class="btn btn-default btn-get-embed-code">Get code</a> </td>
                 <td> <?php echo ($zone["ZoneStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($zone["ZoneStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
-                <td><a href="<?php echo SITE_URL .'/publisher/zone/edit/?id=' . $zone["ZoneId"] . '&name=' . $zone["ZoneName"] . '&width=' . $zone["ZoneWidth"] . '&height=' . $zone["ZoneHeight"] . '&format=' . $zone["ZoneFormat"] ?>">Edit</a></td>
+                <td>
+                    <a title="Edit Zone" href="<?php echo SITE_URL .'/publisher/zone/edit/?id=' . $zone["ZoneId"] . '&name=' . $zone["ZoneName"] . '&width=' . $zone["ZoneWidth"] . '&height=' . $zone["ZoneHeight"] . '&format=' . $zone["ZoneFormat"] ?>"><i class="fa fa-pencil"></i></a>
+                    <?php
+                    $linkUpdateStatus = SITE_URL .'/publisher/zone/updatestatus?id=' . $zone["ZoneId"];
+                    ?>
+                    <?php if ($zone["ZoneStatus"] != 0) {?>
+                        <a title="Deactivate Zone" href="<?php echo $linkUpdateStatus . '&status=0';?>"><i class="icon-cancel"></i></a>
+                    <?php } elseif ($zone["ZoneStatus"] != 1) {?>
+                        <a title="Activate Zone" href="<?php echo $linkUpdateStatus . '&status=1';?>"><i class="fa fa-check-square-o"></i></a>
+                    <?php } ?>
+                </td>
             </tr>
         <?php } ?>
         </tbody>

@@ -11,6 +11,16 @@ class Admin_Model_Banner {
         return Admin_Business_Banner::getAdvertiserBanners($id);
     }
 
+    public static function getBannerTrueviewAnalyze($intUserId)
+    {
+        return Admin_Business_Banner::getBannerTrueviewAnalyze($intUserId);
+    }
+
+    public static function countPendingBanners()
+    {
+        return Admin_Business_Banner::countPendingBanners();
+    }
+
     public static function createNewBanner($userId, $price, $format, $width, $height, $method, $info)
     {
         return Admin_Business_Banner::createNewBanner($userId, $price, $format, $width, $height, $method, $info);

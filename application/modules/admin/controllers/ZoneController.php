@@ -5,7 +5,7 @@ class Admin_ZoneController extends Zend_Controller_Action{
         $this->view->headTitle()->append(' Admin>>Zone ');
         $this->_helper->layout->setLayout('admin');
         $layout = $this->_helper->layout();
-        $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
+        $defaultNamespace = new Zend_Session_Namespace('Zend_Admin_Auth');
         if(isset($defaultNamespace)) {
             $session = $defaultNamespace->newsession;
             $condition = $session["condition"];

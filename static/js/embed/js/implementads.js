@@ -214,11 +214,12 @@
         var banner = p.banners[0];
         var info = getBannerInfo(banner.BannerInfo);
         var clkLink = psplAdrequest + "/clickad?";
-
+console.log("p", p);
         var clk = [];
-        clk.push((banner.BannerId ? "bid=" + banner.BannerId : ""));
-        clk.push((banner.BannerPrice ? "price=" + banner.BannerPrice : ""));
-        clk.push((info.url ? "redirect=" + encodeURIComponent(info.url) : ""));
+        clk.push(p.zoneId ? "zid=" + p.zoneId : "");
+        clk.push(banner.BannerId ? "bid=" + banner.BannerId : "");
+        clk.push(banner.BannerPrice ? "price=" + banner.BannerPrice : "");
+        clk.push(info.url ? "redirect=" + encodeURIComponent(info.url) : "");
         clk.push("url=" + encodeURIComponent(_topWin.document.location.href));
 
         return clkLink + clk.join("&");
@@ -229,10 +230,10 @@
         var info = getBannerInfo(banner.BannerInfo);
         info.url = buildClickUrl(p);
 
-        return ["<div class='pspl'",
+        return ["<div class='pspl' data-banner-id='" + banner.BannerId + "'",
             "><a class='pspl_anchor' title='" + (info.title ? info.title : "") + "' href='",
             (info.url ? info.url : ""),"' target='_blank'>",
-            "<img style='width:" + p.width +"px;height:" + p.height + "px;' src='" + (info.file ? info.file : "") + "'>","</a>","</div>"].join("");
+            "<img style='width:" + p.width +"px;height:" + p.height + "px;' src='" + (info.file ? (info.file.indexOf("http") > -1 ? info.file : "http:" + info.file ): "") + "'>","</a>","</div>"].join("");
     };
 
     var Html5VideoAd = {
@@ -246,6 +247,8 @@
         init: function(inpageId, playerId, data) {
             var banner = data.banners[0];
             var info = getBannerInfo(banner.BannerInfo);
+            info.url = buildClickUrl(data);
+
             this.inpageId = inpageId;
             this.playerId = playerId;
             this.containerId = playerId + "_container";
@@ -253,9 +256,9 @@
 
             var playerHtml = [];
             playerHtml.push('<div id="'+ this.containerId +'" style="width: 100%; height:100%;" class="e-inpage-video-container">');
-            playerHtml.push('<a target="_blank" href="' + info.url +'"><video autoplay style = "margin: auto 0px; background-color: transparent; cursor: pointer; width: 100%; height: 100%; border: 0px solid rgb(204, 204, 204); z-index: 9;" id="'+ playerId +'" webkit-playsinline="" muted="" preload="auto"><source type="video/mp4" src = "'+ (info.mediaFile ? info.mediaFile : "") +'" ></source></video></a></div>');
+            playerHtml.push('<a target="_blank" href="' + (info.url ? (info.url.indexOf("http") > -1 ? info.url : "http:" + info.url ): "") +'"><video autoplay style = "margin: auto 0px; background-color: transparent; cursor: pointer; width: 100%; height: 100%; border: 0px solid rgb(204, 204, 204); z-index: 9;" id="'+ playerId +'" webkit-playsinline="" muted="" preload="auto"><source type="video/mp4" src = "'+ (info.mediaFile ? (info.mediaFile.indexOf("http") > -1 ? info.mediaFile : "http:" + info.mediaFile ): "") +'" ></source></video></a></div>');
             playerHtml.push('<div id="buttons" class="controls"><div class="off" id="soundButton"></div><div class="closeButton" id="'+ playerId +'_closeButton"></div></div><div id="time" class="controls"><div id="counter">0 seconds</div></div>');
-            playerHtml.push('<div id="endImage"><a target="_blank" href="' + info.url +'"> <img style="width: ' + data.width + 'px; height:' + data.height +'px;" src="' + info.file + '"></a><div id="replayButton"></div></div>');
+            playerHtml.push('<div id="endImage"><a target="_blank" href="' + (info.url ? (info.url.indexOf("http") > -1 ? info.url : "http:" + info.url ): "") +'"> <img style="width: ' + data.width + 'px; height:' + data.height +'px;" src="' + (info.file ? (info.file.indexOf("http") > -1 ? info.file : "http:" + info.file ): "") + '"></a><div id="replayButton"></div></div>');
 
             this.setInpage(playerHtml.join(""));
             this.runEvents();
@@ -371,9 +374,11 @@
         }
     };
 
-    var _stringVideoAd = function(p, frame) {
-        EventEmitter.on('callVideoAd', function() {
-            var frame = frame;
+    var _stringVideoAd = function(p) {
+        var banner = p.banners[0];
+
+        var videoAd = function() {
+            var frame = _topDoc.getElementById(win.pspl_frameId);
             var data = p;
             var playerId = "inpage_" + Math.round(Math.random() * 10000);
 
@@ -405,9 +410,10 @@
                 playerId,
                 data
             )
-        });
+        };
+        addEvent(win, "load", videoAd);
 
-        return ['<div id="playerWrapper"><div' + ' id="inPage" class="e-inpage"></div></div>'].join("");
+        return ['<div data-banner-id="' + banner.BannerId + '" id="playerWrapper"><div' + ' id="inPage" class="e-inpage"></div></div>'].join("");
     };
 
     var _toStrPsplAd = function(data, frame) {
@@ -467,7 +473,7 @@
             trueviewLogged = true;
             callback = callback || undefined;
             imp.push("id=" + (data.zoneId ? data.zoneId : win.pspl_zone));
-            imp.push("bid=" + (banner.BannerId ? banner : 888));
+            imp.push("bid=" + (banner.BannerId ? banner.BannerId : 888));
             imp.push("url=" + encodeURIComponent(_topWin.document.location.href));
 
             sendLog(url + imp.join("&"), callback)
@@ -498,7 +504,6 @@
         EventEmitter.emit("TraceImpression", adData);
         addEvent(window, "load", function() {
             EventEmitter.emit('logoAnimation');
-            EventEmitter.emit('callVideoAd');
         });
 
         detectZoneViewed(frame, adData);

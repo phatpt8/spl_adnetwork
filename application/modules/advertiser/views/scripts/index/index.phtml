@@ -10,13 +10,13 @@
         <thead>
         <tr>
             <th>BannerId</th>
-            <th>BannerPrice</th>
-            <th>BannerFormat</th>
-            <th>BannerWidth</th>
-            <th>BannerHeight</th>
-            <th>BannerMethod</th>
-            <th>BannerInfo</th>
-            <th>BannerStatus</th>
+            <th>Creative</th>
+            <th>Format</th>
+            <th>Placement</th>
+            <th>Method</th>
+            <th>Price</th>
+            <th>Info</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -24,20 +24,25 @@
         <?php foreach($this->bannerData as $key => $banner) { ?>
             <tr>
                 <td> <?php echo $banner["BannerId"]; ?> </td>
-                <td> <?php echo $banner["BannerPrice"]; ?> </td>
+                <td> <?php $bInfo = json_decode($banner["BannerInfo"]); ?>
+                    <div class="widget-creative-eclick" style="width:125px;">
+                        <img class="widget-thumbnail" src="<?php echo $bInfo->file; ?>">
+                    </div>
+                </td>
                 <td> <?php echo $banner["BannerFormat"]; ?> </td>
-                <td> <?php echo $banner["BannerWidth"]; ?> </td>
-                <td> <?php echo $banner["BannerHeight"]; ?> </td>
+                <td> <?php echo $banner["BannerWidth"] . 'x' . $banner["BannerHeight"]; ?> </td>
                 <td> <?php echo $banner["BannerMethod"]; ?> </td>
-                <td> <?php
-                    $bInfo = json_decode($banner["BannerInfo"]); ?>
-                        <div class="txt_bold"> <?php echo $bInfo->title; ?></div>
-                        <div class="txt_email"> <?php echo $bInfo->file; ?></div>
-                        <div class="txt_email"> <?php echo $bInfo->url; ?></div>
+                <td> <?php echo $banner["BannerPrice"]; ?> </td>
+                <td>
+                    <div class="txt_bold"> <?php echo $bInfo->title; ?></div>
+                    <div class="txt_email"> <?php echo $bInfo->url; ?></div>
+                    <?php if ($banner["BannerFormat"] == 202){ ?>
+                        <div class="txt_email"> <?php echo $bInfo->mediaFile; ?></div>
+                    <?php } ?>
                 </td>
                 <td> <?php echo ($banner["BannerStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($banner["BannerStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
                 <td>
-                    <a href="<?php echo SITE_URL .'/advertiser/banner/edit/?id=' . $banner["BannerId"] . '&price=' . $banner["BannerPrice"] . '&format=' . $banner["BannerPrice"] . '&width=' . $banner["BannerWidth"] . '&height=' . $banner["BannerHeight"] . '&method=' . $banner["BannerMethod"] . '&title=' .  $bInfo->title . '&file=' .  $bInfo->file . '&url=' .  urlencode($bInfo->url)?>"><i class="fa fa-pencil"></i></a>
+                    <a title="Edit Banner" href="<?php echo SITE_URL .'/advertiser/banner/edit/?id=' . $banner["BannerId"] . '&price=' . $banner["BannerPrice"] . '&format=' . $banner["BannerFormat"] . '&width=' . $banner["BannerWidth"] . '&height=' . $banner["BannerHeight"] . '&method=' . $banner["BannerMethod"] . '&title=' .  $bInfo->title . '&file=' .  $bInfo->file . '&url=' .  urlencode($bInfo->url) . ($banner["BannerFormat"] == 202 ? '&mediafile=' . urlencode($bInfo->mediaFile) : '')?>"><i class="fa fa-pencil"></i></a>
                     <?php
                     $linkUpdateStatus = SITE_URL .'/advertiser/banner/updatestatus?id=' . $banner["BannerId"];
                     ?>

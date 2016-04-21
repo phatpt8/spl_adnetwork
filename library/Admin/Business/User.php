@@ -17,6 +17,40 @@ class Admin_Business_User {
         return $arrResult;
     }
 
+    public static function getUserByBannerId($intBannerId)
+    {
+        $result = 0;
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->prepare('SELECT u.UserId FROM user u, banner b WHERE u.UserId = b.UserId and b.BannerId = :bannerId');
+            $stmt->bindParam('bannerId', $intBannerId, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchColumn(0);
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $result;
+    }
+
+    public static function getUserByZoneId($intZoneId)
+    {
+        $result = 0;
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->prepare('SELECT u.UserId FROM user u, zone z WHERE u.UserId = z.UserId and z.ZoneId = :zoneId');
+            $stmt->bindParam('zoneId', $intZoneId, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchColumn(0);
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $result;
+    }
+
     public static function getBalance($intUserId) {
         $arrResult = array();
         try {

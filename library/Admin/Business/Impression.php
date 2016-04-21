@@ -13,7 +13,7 @@ class Admin_Business_Impression {
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $result[0];
+        return $result;
     }
 
     public static function insertImpression($intZoneId, $intBannerId, $strImpressionUrl)

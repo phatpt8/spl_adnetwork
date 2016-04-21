@@ -76,7 +76,7 @@ class UserController extends Zend_Controller_Action{
             $fullname =  $session["activeFullname"];
             $id =  $session["activeId"];
 
-            if (!isset($session) || $role == 2 || $role == 3) {
+            if (!isset($session)) {
                 $this->redirect(SITE_URL . '/user/login');
             }
 
@@ -157,6 +157,35 @@ class UserController extends Zend_Controller_Action{
             } else {
                 $this->redirect(SITE_URL . '/user/login?status=registerfailed');
             }
+        }
+    }
+
+    public function updateinfoAction() {
+        $this->view->headTitle()->append('Update Account info');
+        $this->_helper->layout->setLayout('login');
+
+        $layout = $this->_helper->layout();
+
+        $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
+        if(isset($defaultNamespace)) {
+            $session = $defaultNamespace->newsession;
+            $condition = $session["condition"];
+            $role = $session["activeRole"];
+            $fullname = $session["activeFullname"];
+            $id = $session["activeId"];
+
+            if (!isset($session)) {
+                $this->redirect(SITE_URL . '/user/login');
+            }
+
+            $view_arr = array(
+                'fullname' => $fullname,
+                'id' => $id
+            );
+            $this->view->assign($view_arr);
+            $layout->fullname = $fullname;
+            $layout->role = $role;
+
         }
     }
 }

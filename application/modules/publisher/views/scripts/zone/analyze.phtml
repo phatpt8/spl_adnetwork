@@ -1,0 +1,32 @@
+<div class="container">
+    <h3> Zone Analyze Dashboard</h3>
+    <hr>
+
+    <?php if (empty($this->zoneData)) { ?>
+        <h3>No zone found!</h3>
+        <?php return;} else { ?>
+        <table class="table table-bordered text-right">
+            <thead>
+            <tr>
+                <th>ZoneId</th>
+                <th>Name</th>
+                <th>CreateTime</th>
+                <th>Format</th>
+                <th>Placement</th>
+                <th>Impression</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($this->zoneData as $key => $zone) { ?>
+            <tr>
+                <td> <?php echo $zone["ZoneId"]; ?> </td>
+                <td> <?php echo $zone["ZoneName"]; ?> </td>
+                <td> <?php $date=date_create($zone["ZoneCreateTimestamp"]); echo date_format($date, 'd/m/Y H:i:s'); ?> </td>
+                <td> <?php echo $zone["ZoneFormat"]; ?> </td>
+                <td> <?php echo $zone["ZoneWidth"] . 'x' . $zone["ZoneHeight"]; ?> </td>
+                <td> <span class="timer" data-from="0" data-to="<?php echo $zone["Impression"];?>"></span></td>
+                <?php } ?>
+            </tbody>
+        </table>
+    <?php } ?>
+</div>

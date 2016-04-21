@@ -11,6 +11,16 @@ class Admin_Model_Zone {
         return Admin_Business_Zone::getPublisherZones($userId);
     }
 
+    public static function getZoneAnalyze($intUserId)
+    {
+        return Admin_Business_Zone::getZoneAnalyze($intUserId);
+    }
+
+    public static function countPendingZones()
+    {
+        return Admin_Business_Zone::countPendingZones();
+    }
+
     public static function createNewZone($userId, $width, $height, $name, $format)
     {
         return Admin_Business_Zone::createNewZone($userId, $width, $height, $name, $format);

@@ -38,7 +38,7 @@ class Admin_AdrequestController extends Zend_Controller_Action {
                     echo $callbackName . ' && ' . $callbackName . '(' . json_encode($response) . ')';
                 }
             } else {
-                echo $callbackName . ' && ' . $callbackName . '(' . json_encode(array('INVALID' => true)) . ')';
+                echo $callbackName . ' && ' . $callbackName . '(' . json_encode(array('INVALID' => true, 'ZONE_INACTIVE' => true)) . ')';
             }
 
         }
@@ -50,11 +50,20 @@ class Admin_AdrequestController extends Zend_Controller_Action {
 
         if($this->_request->isGet()) {
             $price = trim($this->_request->getParam('price', null));
-            $url = trim($this->_request->getParam('bid', null));
+            $url = trim($this->_request->getParam('url', null));
             $bannerId = trim($this->_request->getParam('bid', null));
+            $zoneId = trim($this->_request->getParam('zid', null));
             $redirect = trim($this->_request->getParam('redirect', null));
 
             $result = Admin_Model_Click::insertClick($price, $url, $bannerId);
+            if ($result > 0) {
+                $ubid = Admin_Model_User::getUserByBannerId($bannerId);
+                $minus = Admin_Model_User::updateBalance($ubid, intval("-" . $price));
+
+                $uzid = Admin_Model_User::getUserByZoneId($zoneId);
+                $plus = Admin_Model_User::updateBalance($uzid, intval($price) / 10);
+            }
+
             $this->redirect($redirect);
         }
     }

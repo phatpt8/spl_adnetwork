@@ -35,6 +35,16 @@ class Admin_Model_User {
         return  Admin_Business_User::getUserByRole($role, $active);
     }
 
+    public static function getUserByBannerId($bid)
+    {
+        return Admin_Business_User::getUserByBannerId($bid);
+    }
+
+    public static function getUserByZoneId($zid)
+    {
+        return Admin_Business_User::getUserByZoneId($zid);
+    }
+
     public static function checkEmail($email)
     {
         return Admin_Business_User::checkEmail($email);

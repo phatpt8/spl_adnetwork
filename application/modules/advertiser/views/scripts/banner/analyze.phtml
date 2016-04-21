@@ -1,1 +1,36 @@
-<h3>Anal page!</h3>
+<div class="container">
+    <h3> Banner Analyze Dashboard</h3>
+    <hr>
+
+    <?php if (empty($this->bannerData)) { ?>
+        <h3>No banner found!</h3>
+        <?php return;} else { ?>
+        <table class="table table-bordered text-right">
+            <thead>
+            <tr>
+                <th class="col-sm-1">BannerId</th>
+                <th>Info</th>
+                <th>CreateTime</th>
+                <th>Placement</th>
+                <th>Trueview</th>
+                <th>Click</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($this->bannerData as $key => $banner) { ?>
+                <tr>
+                    <td> <?php echo $banner["BannerId"]; ?> </td>
+                    <td class="text-left">
+                        <div class="txt_bold"> Price <?php echo $banner["BannerPrice"]; ?></div>
+                        <div class="txt_email"> Format <?php echo $banner["BannerFormat"]; ?></div>
+                        <div class="txt_email"> Method <?php echo $banner["BannerMethod"]; ?></div>
+                    </td>
+                    <td class="text-left"> <?php echo $banner["BannerCreateTimestamp"]; ?> </td>
+                    <td class="text-left"> <?php echo $banner["BannerWidth"] . 'x' . $banner["BannerHeight"]; ?> </td>
+                    <td> <span class="timer" data-from="0" data-to="<?php echo $banner["Trueview"];?>"></span> </td>
+                    <td> <?php if (isset($banner["Click"]) && is_numeric($banner["Click"])) { ?> <span class="timer" data-from="0" data-to="<?php echo $banner["Click"];?>"></span> <?php } else { echo '0';?> <?php } ?></td>
+            <?php } ?>
+            </tbody>
+        </table>
+    <?php } ?>
+</div>

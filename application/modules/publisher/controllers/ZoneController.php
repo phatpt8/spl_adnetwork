@@ -107,10 +107,44 @@ class Publisher_ZoneController extends Zend_Controller_Action{
             $status = trim($this->_request->getParam('status', null));
             $result = Admin_Model_Zone::updateZoneStatus($zoneid, $status);
             if ($result != 0) {
-                $this->redirect(SITE_URL . '/publisher/zone');
+                $this->redirect(SITE_URL . '/publisher/zone?status=updatestatusSuccess');
             } else {
                 $this->redirect(SITE_URL . '/publisher/zone?err=updatestatusFailed');
             }
+        }
+    }
+
+    public function analyzeAction() {
+        $this->view->headTitle()->append('Analyze Zone');
+        $this->_helper->layout->setLayout('publisher');
+        $layout = $this->_helper->layout();
+
+        $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
+        if(isset($defaultNamespace)) {
+            $session = $defaultNamespace->newsession;
+            $condition = $session["condition"];
+            $role =  $session["activeRole"];
+            $fullname =  $session["activeFullname"];
+            $id =  $session["activeId"];
+
+            if (!isset($session) || $role != 2) {
+                $this->redirect(SITE_URL . '/user/login');
+            }
+
+            $view_arr = array(
+                'fullname' => $fullname,
+                'id' => $id
+            );
+            $this->view->assign($view_arr);
+            $layout->fullname = $fullname;
+            $layout->role = $role;
+
+            $result = Admin_Model_Zone::getZoneAnalyze($id);
+            $this->view->zoneData = $result;
+
+            $this->view->headScript()->appendFile(STATIC_URL . '/js/library/jquery.countTo.js');
+        } else {
+            $this->redirect(SITE_URL . '/user/login');
         }
     }
 }

@@ -971,3 +971,31 @@ input[type="submit"].btn-block,input[type="reset"].btn-block,input[type="button"
 #anchorIndex {
     display: none;
 }
+
+.bold_red
+{
+    color:#fc0203;
+    font-weight:bold;
+}
+
+.widget-creative-eclick {
+    padding: 10px;
+}
+
+.widget-creative-eclick:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.widget-creative-eclick .widget-title {
+    display: block;
+    margin-bottom: 5px;
+    color: #2980b9;
+}
+
+.widget-creative-eclick img.widget-thumbnail {
+    float: left;
+    max-width: 100%;
+    margin-right: 5px;
+}

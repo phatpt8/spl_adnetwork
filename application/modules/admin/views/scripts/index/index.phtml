@@ -5,15 +5,15 @@
                 <div class="row-fluid">
                     <div class="span4 statbox purple" style="cursor: pointer;margin-bottom: 0;">
                         <div style="font-size: 18px;">Click</div>
-                        <div class="number" style="right: 30%;top: 40%;"><?php echo $this->clicks; ?> <i class="fa fa-edit"></i></div>
+                        <div class="number" style="right: 30%;top: 40%;"><span class="timer" data-from="0" data-to="<?php echo $this->clicks; ?>"></span> <i class="fa fa-edit"></i></div>
                     </div>
                     <div class="span4 statbox green" style="cursor: pointer;margin-bottom: 0;">
                         <div style="font-size: 18px;">Impression</div>
-                        <div class="number" style="right: 30%;top: 40%;"><?php echo $this->impressions; ?> <i class="fa fa-check-square-o"></i></div>
+                        <div class="number" style="right: 30%;top: 40%;"><span class="timer" data-from="0" data-to="<?php echo $this->impressions; ?>"></span> <i class="fa fa-check-square-o"></i></div>
                     </div>
                     <div class="span4 statbox yellow" style="cursor: pointer;margin-bottom: 0;">
                         <div style="font-size: 18px;">Trueview</div>
-                        <div class="number" style="right: 30%;top: 40%;"><?php echo $this->trueviews; ?> <i class="fa fa-arrow-down"></i></div>
+                        <div class="number" style="right: 30%;top: 40%;"> <span class="timer" data-from="0" data-to="<?php echo $this->trueviews; ?>"></span> <i class="fa fa-arrow-up"></i></div>
                     </div>
 
                 </div>

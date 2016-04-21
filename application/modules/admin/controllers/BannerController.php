@@ -5,7 +5,7 @@ class Admin_BannerController extends Zend_Controller_Action{
         $this->view->headTitle()->append(' Admin>>Banner ');
         $this->_helper->layout->setLayout('admin');
         $layout = $this->_helper->layout();
-        $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
+        $defaultNamespace = new Zend_Session_Namespace('Zend_Admin_Auth');
         if(isset($defaultNamespace)) {
             $session = $defaultNamespace->newsession;
             $condition = $session["condition"];
@@ -54,4 +54,5 @@ class Admin_BannerController extends Zend_Controller_Action{
             }
         }
     }
+
 }

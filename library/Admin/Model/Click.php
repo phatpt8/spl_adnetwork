@@ -11,6 +11,11 @@ class Admin_Model_Click {
         return Admin_Business_Click::insertClick($price, $url, $bid);
     }
 
+    public static function getBannerClickCount($bids)
+    {
+        return Admin_Business_Click::getBannerClickCount($bids);
+    }
+
     public static function getBannersClicksFromUser($id)
     {
         return Admin_Business_Click::getBannersClicksFromUser($id);

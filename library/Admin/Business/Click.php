@@ -13,7 +13,24 @@ class Admin_Business_Click {
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $result[0];
+        return $result;
+    }
+
+    public static function getBannerClickCount($intBannerIds)
+    {
+        $arrResult = array();
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->prepare('SELECT COUNT(c.ClickId) as "Click", c.ClickUrl, b.BannerId FROM banner b, clickdetail c WHERE c.BannerId = b.BannerId AND c.BannerId IN (:bannerIds) GROUP BY b.BannerId');
+            $stmt->bindParam('bannerIds', $intBannerIds, PDO::PARAM_STR);
+            $stmt->execute();
+            $arrResult = $stmt->fetchAll();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $arrResult;
     }
 
     public static function getBannersClicksFromUser($intUserId)
@@ -28,7 +45,7 @@ class Admin_Business_Click {
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $result[0];
+        return $result;
     }
 
     public static function insertClick($intClickPrice, $strClickUrl, $intBannerId)

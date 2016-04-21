@@ -33,7 +33,7 @@ class AuthController extends Zend_Controller_Action{
                     return;
                 }
 
-                $defaultNamespace = new Zend_Session_Namespace('Zend_Auth');
+                $defaultNamespace = new Zend_Session_Namespace('Zend_Admin_Auth');
                 unset($defaultNamespace->newsession);
                 $arrSession = array(
                     'condition' => 'logged',

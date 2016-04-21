@@ -25,10 +25,10 @@
             <i class="fa fa-history"></i> Index
         </a>
         <a href="<?php echo SITE_URL .'/admin/banner'?>" class="list-group-item">
-            <i class="fa fa-folder-open-o"></i> Banner <span class="badge">14</span>
+            <i class="fa fa-folder-open-o"></i> Banner <span class="badge"><?php echo $this->layout()->pendingBanners; ?></span>
         </a>
         <a href="<?php echo SITE_URL .'/admin/zone'?>" class="list-group-item">
-            <i class="fa fa-folder-open-o"></i> Zone <span class="badge">14</span>
+            <i class="fa fa-folder-open-o"></i> Zone <span class="badge"><?php echo $this->layout()->pendingZones; ?></span>
         </a>
         <a href="<?php echo SITE_URL .'/admin/user'?>" class="list-group-item">
             <i class="fa fa-user"></i> User

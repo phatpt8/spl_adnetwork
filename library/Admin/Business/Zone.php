@@ -33,6 +33,38 @@ class Admin_Business_Zone {
         return $arrResult;
     }
 
+    public static function getZoneAnalyze($intUserId)
+    {
+        $arrResult = array();
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->prepare('SELECT z.ZoneId, z.ZoneWidth, z.ZoneHeight, z.ZoneFormat, z.ZoneCreateTimestamp, z.ZoneName, COUNT(i.ImpId) as "Impression" FROM zone z, impression i WHERE z.ZoneId = i.ZoneId AND z.UserId = :userId');
+            $stmt->bindParam('userId', $intUserId, PDO::PARAM_INT);
+            $stmt->execute();
+            $arrResult = $stmt->fetchAll();
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $arrResult;
+    }
+
+    public static function countPendingZones()
+    {
+        $result = 0;
+        try {
+            $storage = Admin_Global::getDb('db', 'master');
+            $stmt = $storage->query('SELECT COUNT(*) FROM zone WHERE ZoneStatus=1');
+            $result = $stmt->fetchColumn(0);
+            $stmt->closeCursor();
+            unset($stmt);
+        } catch (Zend_Db_Exception $e) {
+            Admin_Global::sendLog($e);
+        }
+        return $result;
+    }
+
     public static function createNewZone($intUserId, $intZoneWidth, $intZoneHeight, $strZoneName, $intZoneFormat)
     {
         $intBannerId = 0;

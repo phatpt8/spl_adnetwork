@@ -28,7 +28,7 @@ class Admin_Business_Trueview {
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $result[0];
+        return $result;
     }
 
     public static function getBannerTrueviews($intUserId, $intBannerId)
@@ -43,7 +43,7 @@ class Admin_Business_Trueview {
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $result[0];
+        return $result;
     }
 
     public static function getZonesTrueviewsFromUser($intUserId)
@@ -58,7 +58,7 @@ class Admin_Business_Trueview {
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $result[0];
+        return $result;
     }
 
     public static function getZoneTrueviews($intUserId, $intZoneId)
@@ -73,7 +73,7 @@ class Admin_Business_Trueview {
         } catch (Zend_Db_Exception $e) {
             Admin_Global::sendLog($e);
         }
-        return $result[0];
+        return $result;
     }
 
     public static function insertTrueview($intZoneId, $intBannerId, $strTrueviewUrl)
