@@ -167,22 +167,32 @@ class Advertiser_BannerController extends Zend_Controller_Action{
             $layout->fullname = $fullname;
             $layout->role = $role;
 
+
             $arrBid = array();
-            $result1 = Admin_Model_Banner::getBannerTrueviewAnalyze($id);
-            foreach ($result1 as $key => $banner) {
+            $result = Admin_Model_Banner::getAdvertiserBanners($id);
+            foreach ($result as $key => $banner) {
                 array_push($arrBid, $banner["BannerId"]);
             }
-            $arrClick = Admin_Model_Click::getBannerClickCount(join(",", $arrBid));
-//            echo '<pre>';print_r($result1);die;
-            foreach ($result1 as $key => $banner) {
-                $result1[$key]["Click"] = "0";
-                foreach($arrClick as $click) {
-                    if ($click["BannerId"] == $banner["BannerId"]) {
-                        $result1[$key]["Click"] = $click["Click"];
+
+            $arrTrueview = Admin_Model_Banner::getBannerTrueviewCount(join(",", $arrBid));
+            foreach ($result as $key => $banner) {
+                $result[$key]["Trueview"] = "0";
+                foreach($arrTrueview as $trueview) {
+                    if ($trueview["BannerId"] == $banner["BannerId"]) {
+                        $result[$key]["Trueview"] = $trueview["Trueview"];
                     }
                 }
             }
-            $this->view->bannerData = $result1;
+            $arrClick = Admin_Model_Click::getBannerClickCount(join(",", $arrBid));
+            foreach ($result as $key => $banner) {
+                $result[$key]["Click"] = "0";
+                foreach($arrClick as $click) {
+                    if ($click["BannerId"] == $banner["BannerId"]) {
+                        $result[$key]["Click"] = $click["Click"];
+                    }
+                }
+            }
+            $this->view->bannerData = $result;
 
             $this->view->headScript()->appendFile(STATIC_URL . '/js/library/jquery.countTo.js');
         } else {

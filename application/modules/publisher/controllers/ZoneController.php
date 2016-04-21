@@ -139,7 +139,22 @@ class Publisher_ZoneController extends Zend_Controller_Action{
             $layout->fullname = $fullname;
             $layout->role = $role;
 
-            $result = Admin_Model_Zone::getZoneAnalyze($id);
+            $arrZoneId = array();
+            $result = Admin_Model_Zone::getPublisherZones($id);
+            foreach ($result as $key => $zone) {
+                array_push($arrZoneId, $zone["ZoneId"]);
+            }
+
+            $arrImp = Admin_Model_Zone::getZoneImpCount(join(",", $arrZoneId));
+            foreach ($result as $key => $zone) {
+                $result[$key]["Impression"] = "0";
+                foreach($arrImp as $imp) {
+                    if ($imp["ZoneId"] == $zone["ZoneId"]) {
+                        $result[$key]["Impression"] = $imp["Impression"];
+                    }
+                }
+            }
+
             $this->view->zoneData = $result;
 
             $this->view->headScript()->appendFile(STATIC_URL . '/js/library/jquery.countTo.js');
