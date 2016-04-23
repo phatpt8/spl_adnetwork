@@ -1,67 +1,94 @@
 <div class="container">
-    <div class="col-md-5">
-        <form action="<?php echo SITE_URL . '/advertiser/banner/edit'?>" method="POST" id="form_add_banner" autocomplete="off" novalidate="novalidate" class="form-signin">
-            <h2 class="form-signin-heading">Edit banner</h2>
+    <form action="<?php echo SITE_URL . '/advertiser/banner/edit'?>" enctype="multipart/form-data" method="POST" id="form_add_banner" autocomplete="off" novalidate="novalidate" class="form-signin">
+
+        <div class="col-sm-7">
+            <h2 class="form-signin-heading">Edit banner <?php echo $this->editBanner['id'];?></h2>
             <input type="hidden" value="<?php echo $this->editBanner['id'];?>" name="id" id="id">
-
-            <div class="">
-                <label class="inputTitle">Title</label>
-                <input type="text" value="<?php echo $this->editBanner['title'];?>" autofocus="" required="" placeholder="Title" class="form-control" name="title" id="title">
-
+            <div class="form-group">
+                <label class="control-label col-sm-4">Title</label>
+                <div class="col-sm-8">
+                    <input type="text" value="<?php echo $this->editBanner['title'];?>" autofocus="" required="" placeholder="Title" class="form-control" name="title" id="title">
+                </div>
             </div>
-            <div class="">
-
-                <label class="inputImage">Image</label>
-                <input type="text" value="<?php echo $this->editBanner['file'];?>" required="" placeholder="Image" class="form-control" name="image" id="image">
-
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">Image</label> 
+                <div class="col-sm-8">
+                    <input type="file" name="uploadimage" id="uploadimage" placeholder="Image file"  accept="image/*">
+                </div>
             </div>
-            <div class="">
-
-                <label class="inputClickUrl">Click Url</label>
-                <input type="text" value="<?php echo $this->editBanner['url'];?>" required="" placeholder="Click Url" class="form-control" name="clickUrl" id="clickUrl">
-
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <div class="control-label col-sm-4"></div>
+                <div class="col-sm-8">
+                    <?php if (isset($this->editBanner['file'])){?>
+                        <input type="hidden" value="<?php echo $this->editBanner['file'];?>" name="image" id="image">
+                        <img name="previewImage" id="previewImage" width="210" height="125" src="<?php echo $this->editBanner['file'];?>"/>
+                    <?php } ?>
+                </div>
             </div>
-            <div class="">
-
-                <label class="inputPrice">Price</label>
-                <input type="text" value="<?php echo $this->editBanner['price'];?>" required="" placeholder="Price" class="form-control" name="price" id="price">
-
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">Click Url</label>
+                <div class="col-sm-8">
+                    <input type="text" value="<?php echo $this->editBanner['url'];?>" required="" placeholder="Click Url" class="form-control" name="clickUrl" id="clickUrl">
+                </div>
             </div>
-
-            <div class="">
-                <label>Placement:</label>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">Price</label>
+                <div class="col-sm-8">
+                    <input type="text" value="<?php echo $this->editBanner['price'];?>" required="" placeholder="Price" class="form-control" name="price" id="price">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">Placement:</label>
                 <?php $placement = join("x", array($this->editBanner['width'], $this->editBanner['height']))?>
-                <input type="radio" name="placement" id="placement1" value="300x250" <?php echo (($placement == "300x250") ? 'checked="checked"' : '')?>><label for="placement1">300x250</label>
-                <input type="radio" name="placement" id="placement2" value="300x600" <?php echo (($placement == "300x600") ? 'checked="checked"' : '')?>><label for="placement2">300x600</label>
-                <input type="radio" name="placement" id="placement3" value="480x270" <?php echo (($placement == "480x270") ? 'checked="checked"' : '')?>><label for="placement3">480x270</label>
+                <div class="col-sm-8">
+                    <select class="form-control" name="placement" id="placement">
+                        <option value="300x250" <?php echo (($placement == "300x250") ? 'selected' : '')?>>300x250</option>
+                        <option value="300x600" <?php echo (($placement == "300x600") ? 'selected' : '')?>>300x600</option>
+                        <option value="480x270" <?php echo (($placement == "480x270") ? 'selected' : '')?>>480x270</option>
+                    </select>
+                </div>
             </div>
-            <div id="hint" class="bold_red"></div>
-
-            <div class="" id="divMediafile" style="display: none;">
-
-                <label class="inputMediaFile">Media File</label>
-                <input type="text" value="<?php echo isset($this->editBanner['mediafile']) && trim($this->editBanner['mediafile']) != '' ? $this->editBanner['mediafile'] : '';?>" required="" placeholder="mediaFile" class="form-control" name="mediafile" id="mediafile">
-
+            <div class="clearfix"></div>
+            <div class="form-group" id="divMediafile" <?php echo $this->editBanner['format'] == '202' ? '' : 'style="display: none;"';?>>
+                <label class="control-label col-sm-4">Media File</label>
+                <div class="col-sm-8">
+                    <input type="text" value="<?php echo isset($this->editBanner['mediafile']) && trim($this->editBanner['mediafile']) != '' ? $this->editBanner['mediafile'] : '';?>" required="" placeholder="Media File" class="form-control" name="mediafile" id="mediafile">
+                    <input type="file" name="uploadmediafile" id="uploadmediafile" placeholder="Media file"  accept="video/mp4">
+                </div>
             </div>
-            <div class="">
-
-                <label class="inputFormat">Format</label>
-
-                <input type="radio" name="format" id="format1" value="101" <?php echo $this->editBanner['format'] == '101' ? 'checked' : '';?>><label for="format1">Image Ad</label>
-                <input type="radio" name="format" id="format2" value="202" <?php echo $this->editBanner['format'] == '202' ? 'checked' : '';?>><label for="format2">Rich Media Video</label>
-
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">Format</label>
+                <div class="col-sm-8">
+                    <select class="form-control" name="format" id="format">
+                        <option value="101" <?php echo $this->editBanner['format'] == '101' ? 'selected' : '';?>>Image Ad</option>
+                        <option value="202" <?php echo $this->editBanner['format'] == '202' ? 'selected' : '';?>>Rich Media Video</option>
+                    </select>
+                </div>
             </div>
-
-            <div class="">
-                <label for="method">Method:</label>
-                <input type="radio" name="method" id="cpm" value="2" <?php echo (($this->editBanner['method'] == "2") ? 'checked="checked"' : '')?>><label for="cpm">CPM</label>
-                <input type="radio" name="method" id="cpc" value="1" <?php echo (($this->editBanner['method'] == "1") ? 'checked="checked"' : '')?>><label for="cpc">CPC</label>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">Method:</label>
+                <div class="col-sm-8">
+                    <input type="radio" name="method" id="cpm" value="2" <?php echo (($this->editBanner['method'] == "2") ? 'checked="checked"' : '')?>><label for="cpm">CPM</label>
+                    <input type="radio" name="method" id="cpc" value="1" <?php echo (($this->editBanner['method'] == "1") ? 'checked="checked"' : '')?>><label for="cpc">CPC</label>
+                </div>
             </div>
-            <br>
-            <br>
-            <button type="submit" class="btn btn-lg btn-primary btn-block" style="height: 36px;width:20%;float:left;">Edit</button>
-            <button type="button" class="btn btn-default" onclick="history.back();" style="height: 36px;width:20%;float:left;">Cancel</button>
-        </form>
-    </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <div class="control-label col-sm-4"></div>
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block" style="height: 36px;width:20%;float:left;">Edit</button>
+                    <button type="button" class="btn btn-default" onclick="history.back();" style="height: 36px;width:20%;float:left;">Cancel</button>
+                    <div id="hint" class="bold_red"></div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 

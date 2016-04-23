@@ -62,24 +62,27 @@ $(function(){
         window.location.href = url;
     }
 
-    $("#placement3, #202, #format2").each(function(){
-        $(this).on("click", function() {
+    $("#format").change(function() {
+        if ($(this).val() == "202") {
+            $("#placement").val("480x270");
             $("#divMediafile").css('display', 'block');
             $("#hint").css('display','block');
-            $("#hint").html('<i>Size 480x270 is suitable for Rich Media Video</i>');
-            setTimeout(function() {
-                $("#hint").fadeOut();
-            }, 6000);
-        });
-    });
-
-    $("#placement1, #placement2, #101, #format1").each(function(){
-        $(this).on("click", function() {
+            $("#hint").html('<i>Size 480x270 is suitable for Rich Media Video format</i>');
+        } else {
             $("#divMediafile").css('display', 'none');
-        });
+        }
     });
 
-
+    $("#placement").change(function() {
+        if ($(this).val() == "480x270") {
+            $("#format").val("202")
+            $("#divMediafile").css('display', 'block');
+            $("#hint").css('display','block');
+            $("#hint").html('<i>Size 480x270 is suitable for Rich Media Video format</i>');
+        } else {
+            $("#divMediafile").css('display', 'none');
+        }
+    });
 
     $(".list-group-item").on("click", function(){
         $(this).addClass("active");
@@ -100,5 +103,83 @@ $(function(){
 
     var timer = $('.timer');
     if (typeof timer.countTo == "function") {timer.countTo({speed: 2000, refreshInterval: 50});}
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+
+    function isInputNumber(str) {
+        var regex = /^[0-9()-]+$/;
+        return regex.test(str);
+    }
+
+    $("#email").blur(function() {
+        if ( $(this).val() !== '' && !isEmail($(this).val())) {
+            alert("Email is invalid!");
+            $(this).val("")
+        }
+    });
+
+    $("#phone").blur(function(){
+        if ( $(this).val() !== '' && !isInputNumber($(this).val())) {
+            alert("Phone is invalid!");
+            $(this).val("")
+        }
+    });
+
+    $("#price").blur(function(){
+        if(parseInt($(this).val(), 10) < 1500) {
+            alert("Price must > 1500");
+            $(this).val("1500")
+        }
+    });
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#previewImage').css('display', 'block');
+                $('#previewImage').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+
+            $("#image").val("")
+        }
+    }
+
+    $("#uploadimage").change(function(){
+        readURL(this);
+    });
+
+    $("#uploadmediafile").change(function(){
+        if (this.files && this.files[0]) {
+            $("#mediafile").val("")
+        }
+    });
+
+    //$("#uploadmediafile").change(function(){
+    //    $("#mediafile").val("");
+    //});
+
+    //$("#form_add_banner").submit(function() {
+    //    var current = (new Date()).getTime();
+    //    var to = current + 5000;
+    //    var t = setInterval(function(){
+    //        $('body').css('opacity', 0.3);
+    //        if ((new Date()).getTime() < to) {
+    //            return;
+    //        }
+    //        clearInterval( t );
+    //        $('body').css('opacity', 1);
+    //    }, 100);
+    //})
+
+    $("#form_add_banner").bind('ajax:complete', function() {
+
+    })
 
 });

@@ -21,9 +21,9 @@
                 <tr>
                     <td> <?php echo $banner["BannerId"]; ?> </td>
                     <td class="text-left">
-                        <div class="txt_bold"> Price <?php echo $banner["BannerPrice"]; ?></div>
-                        <div class="txt_email"> Format <?php echo $banner["BannerFormat"]; ?></div>
-                        <div class="txt_email"> Method <?php echo $banner["BannerMethod"]; ?></div>
+                        <div class="txt_bold"> Price <?php echo $banner["BannerPrice"]; ?> VND</div>
+                        <div class="txt_bold"> Format <?php echo $banner["BannerFormat"] == '202' ? 'Html5 Video' : 'Image'; ?></div>
+                        <div class="txt_bold"> Method <?php echo $banner["BannerMethod"] == '2' ? 'CPM' : 'CPC'; ?></div>
                     </td>
                     <td class="text-left"> <?php echo $banner["BannerCreateTimestamp"]; ?> </td>
                     <td class="text-left"> <?php echo $banner["BannerWidth"] . 'x' . $banner["BannerHeight"]; ?> </td>

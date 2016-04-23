@@ -1,39 +1,99 @@
 <div class="container">
-    <div class="col-md-5">
-        <form action="" method="POST" id="form_add_banner" autocomplete="off" novalidate="novalidate" class="form-signin">
+    <form action="" enctype="multipart/form-data" method="POST" id="form_add_banner" autocomplete="off" novalidate="novalidate" class="form-signin">
+        <div class="col-sm-7">
             <h2 class="form-signin-heading">Add new banner</h2>
-
-            <label class="sr-only" for="inputTitle">Title</label>
-            <input type="text" autofocus="" required="" placeholder="Title" class="form-control" name="title" id="title">
-
-            <label class="sr-only" for="inputImage">Image</label>
-            <input type="text" required="" placeholder="Image" class="form-control" name="image" id="image">
-
-            <label class="sr-only" for="inputClickUrl">Click Url</label>
-            <input type="text" required="" placeholder="Click Url" class="form-control" name="clickUrl" id="clickUrl">
-
-            <label class="sr-only" for="inputFormat">Format</label>
-            <input type="radio" name="format" id="format1" value="101" checked="checked"><label for="format1">Image Ad</label>
-            <input type="radio" name="format" id="format2" value="202"><label for="format2">Rich Media Video</label>
-            <div id="divMediafile" style="display: none;">
-                <label class="sr-only" for="inputMediafile">Media File</label>
-                <input type="text" required="" placeholder="Media File .mp4/webm url" class="form-control" name="mediafile" id="mediafile">
+            <div class="form-group">
+                <label class="control-label col-sm-4">Title</label>
+                <div class="col-sm-8">
+                    <input type="text" autofocus="" required="" placeholder="Title" class="form-control" name="title" id="title">
+                </div>
             </div>
-            <br>
-            <label>Placement:</label>
-            <input type="radio" name="placement" id="placement1" value="300x250" checked="checked"><label for="placement1">300x250</label>
-            <input type="radio" name="placement" id="placement2" value="300x600"><label for="placement2">300x600</label>
-            <input type="radio" name="placement" id="placement3" value="480x270"><label for="placement3">480x270</label>
-            <br>
-            <label for="method">Method:</label>
-            <input type="radio" name="method" id="cpm" value="2" checked="checked"><label for="cpm">CPM</label>
-            <input type="radio" name="method" id="cpc" value="1"><label for="cpc">CPC</label>
-            <br>
-            <div class="bold_red" id="hint"></div>
-            <br>
-            <button type="submit" class="btn btn-lg btn-primary btn-block" style="height: 36px;width:20%;float:left;">Add</button>
-            <button type="button" class="btn btn-default" onclick="history.back();" style="height: 36px;width:20%;float:left;">Cancel</button>
-        </form>
-    </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="inputImage">Image</label>
+                <div class="col-sm-8">
+                    <input type="file" name="uploadimage" id="uploadimage" placeholder="Image file" accept="image/*">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <div class="control-label col-sm-4"></div>
+                <div class="col-sm-8">
+                    <img style="display: none;" id="previewImage" name="previewImage" width="210" height="125" src=""/>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="inputClickUrl">Click Url</label>
+                <div class="col-sm-8">
+                    <input type="text" required="" placeholder="Click Url" class="form-control" name="clickUrl" id="clickUrl">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="inputFormat">Format</label>
+                <div class="col-sm-8">
+                    <select class="form-control" name="format" id="format">
+                        <option value="101">Image Ad</option>
+                        <option value="202">Rich Media Video</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div id="divMediafile" class="form-group" style="display: none;">
+                <label class="control-label col-sm-4" for="inputMediafile">Media File</label>
+                <div class="col-sm-8">
+                    <input type="file" name="uploadmediafile" id="uploadmediafile" placeholder="Media file">
+                    or Mp4/webm Link: <input type="text" required="" placeholder="Media Url" class="form-control" name="mediafile" id="mediafile" accept="video/mp4">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4">Placement:</label>
+                <div class="col-sm-8">
+                    <select class="form-control" name="placement" id="placement">
+                        <option value="300x250">300x250</option>
+                        <option value="300x600">300x600</option>
+                        <option value="480x270">480x270</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="method">Method:</label>
+                <div class="col-sm-8">
+                    <input type="radio" name="method" id="cpm" value="2" checked="checked"><label class="" for="cpm">CPM</label>
+                    <input type="radio" name="method" id="cpc" value="1"><label class="" for="cpc">CPC</label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-4" for="price">Price (VND):</label>
+                <div class="col-sm-8">
+                    <input type="text" value="1500" autofocus="" required="" placeholder="Price" class="form-control" name="price" id="price">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block" style="height: 36px;width:20%;float:left;">Add</button>
+                    <button type="button" class="btn btn-default" onclick="history.back();" style="height: 36px;width:20%;float:left;">Cancel</button>
+                    <div class="bold_red" id="hint"></div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </form>
 </div>
+
 

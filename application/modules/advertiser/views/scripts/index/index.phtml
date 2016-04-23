@@ -29,15 +29,15 @@
                         <img class="widget-thumbnail" src="<?php echo $bInfo->file; ?>">
                     </div>
                 </td>
-                <td> <?php echo $banner["BannerFormat"]; ?> </td>
+                <td> <?php echo $banner["BannerFormat"] == '202' ? 'Html5 Video' : 'Image'; ?> </td>
                 <td> <?php echo $banner["BannerWidth"] . 'x' . $banner["BannerHeight"]; ?> </td>
-                <td> <?php echo $banner["BannerMethod"]; ?> </td>
-                <td> <?php echo $banner["BannerPrice"]; ?> </td>
-                <td>
-                    <div class="txt_bold"> <?php echo $bInfo->title; ?></div>
-                    <div class="txt_email"> <?php echo $bInfo->url; ?></div>
+                <td> <?php echo $banner["BannerMethod"] == '2' ? 'CPM' : 'CPC'; ?> </td>
+                <td> <?php echo $banner["BannerPrice"]; ?> VND</td>
+                <td class="text-left">
+                    Title: <div class="txt_bold"> <?php echo $bInfo->title; ?></div>
+                    Url: <div class="txt_email"> <?php echo $bInfo->url; ?></div>
                     <?php if ($banner["BannerFormat"] == 202){ ?>
-                        <div class="txt_email"> <?php echo $bInfo->mediaFile; ?></div>
+                        Media File: <div class="txt_email"> <?php echo $bInfo->mediaFile; ?></div>
                     <?php } ?>
                 </td>
                 <td> <?php echo ($banner["BannerStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($banner["BannerStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>
