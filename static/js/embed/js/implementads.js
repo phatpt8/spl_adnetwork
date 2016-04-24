@@ -376,9 +376,7 @@
 
     var _stringVideoAd = function(p) {
         var banner = p.banners[0];
-        console.log(banner);
 
-        return;
         var videoAd = function() {
             var frame = _topDoc.getElementById(win.pspl_frameId);
             var data = p;
