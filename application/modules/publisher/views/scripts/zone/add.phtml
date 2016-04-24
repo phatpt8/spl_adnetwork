@@ -3,17 +3,21 @@
         <form action="" method="POST" id="form_add_banner" autocomplete="off" novalidate="novalidate" class="form-signin">
             <h2 class="form-signin-heading">Add new zone</h2>
 
-            <label class="sr-only" for="inputTitle">Name</label>
+            <label>Zone Title</label>
             <input type="text" autofocus="" required="" placeholder="Name" class="form-control" name="name" id="name">
-
+            <br>
             <label>Placement:</label>
-            <input type="radio" name="placement" id="placement1" value="300x250" checked="checked"><label for="placement1">300x250</label>
-            <input type="radio" name="placement" id="placement2" value="300x600"><label for="placement2">300x600</label>
-            <input type="radio" name="placement" id="placement3" value="480x270"><label for="placement3">480x270</label>
+            <select class="form-control" name="placement" id="placement">
+                <option value="300x250">300x250</option>
+                <option value="300x600">300x600</option>
+                <option value="480x270">480x270</option>
+            </select>
             <br>
             <label for="format">Format:</label>
-            <input type="radio" name="format" id="101" value="101" checked="checked"><label for="101">Image Ad</label>
-            <input type="radio" name="format" id="202" value="202"><label for="202">Rich Media Video</label>
+            <select class="form-control" name="format" id="format">
+                <option value="101">Image Ad</option>
+                <option value="202">Rich Media Video</option>
+            </select>
             <div class="bold_red" id="hint"></div>
             <br>
             <br>

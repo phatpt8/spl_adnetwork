@@ -2,10 +2,11 @@
 <div class="wrap-form login-form" style="max-width:400px; margin:0 auto; border: 1px solid #ddd;padding:20px">
     <form action="<?php echo SITE_URL .'/auth/verify'?>" method="POST" role="form" id="form-login" autocomplete="off">
         <input type="hidden"  id="redirect" name="redirect" value="<?php echo $this->redirect; ?>" >
-        <legend>
+        <legend style="margin-bottom: 15px;">
             Login
             <div class="clearfix"></div>
         </legend>
+
         <?php if (isset($this->error) && !empty($this->error)) { ?>
             <div class="form-group">
                 <div class="input-group">
@@ -15,13 +16,13 @@
         <?php } ?>
         <div class="form-group">
             <div class="input-group">
-                <input type="email" class="form-control" id="email" name="email" value="" placeholder="Email">
+                <input style="height: 28px;" type="email" class="form-control" id="email" name="email" value="" placeholder="Email">
                 <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" style="padding-top: 0;">
             <div class="input-group">
-                <input type="password" class="form-control" id="password" name="password" value="" placeholder="password">
+                <input style="height: 28px;" type="password" class="form-control" id="password" name="password" value="" placeholder="password">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
             </div>
         </div>

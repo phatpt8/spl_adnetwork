@@ -140,7 +140,8 @@ class Admin_Business_User {
             $storage = Admin_Global::getDb('db', 'master');
             $stmt = $storage->prepare('SELECT COUNT(*) FROM user WHERE UserEmail=:email');
             $stmt->bindParam('email', $strUserEmail, PDO::PARAM_STR);
-            $result = $stmt->execute();
+            $stmt->execute();
+            $result = $stmt->fetchColumn(0);
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {
@@ -149,14 +150,16 @@ class Admin_Business_User {
         return $result;
     }
 
-    public static function checkInfo($strUserName)
+    public static function checkInfo($strUserEmail, $strUserName)
     {
         $result = 0;
         try {
             $storage = Admin_Global::getDb('db', 'master');
-            $stmt = $storage->prepare('SELECT COUNT(*) FROM user WHERE UserName=:uname');
+            $stmt = $storage->prepare('SELECT COUNT(*) FROM user WHERE UserName=:uname AND UserEmail=:umail');
             $stmt->bindParam('uname', $strUserName, PDO::PARAM_STR);
-            $result = $stmt->execute();
+            $stmt->bindParam('umail', $strUserEmail, PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetchColumn(0);
             $stmt->closeCursor();
             unset($stmt);
         } catch (Zend_Db_Exception $e) {

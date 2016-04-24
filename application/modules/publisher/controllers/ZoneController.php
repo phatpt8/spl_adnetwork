@@ -145,7 +145,7 @@ class Publisher_ZoneController extends Zend_Controller_Action{
                 array_push($arrZoneId, $zone["ZoneId"]);
             }
 
-            $arrImp = Admin_Model_Zone::getZoneImpCount(join(",", $arrZoneId));
+            $arrImp = Admin_Model_Zone::getZoneAnalyze(join(",", $arrZoneId));
             foreach ($result as $key => $zone) {
                 $result[$key]["Impression"] = "0";
                 foreach($arrImp as $imp) {

@@ -50,9 +50,9 @@ class Admin_Model_User {
         return Admin_Business_User::checkEmail($email);
     }
 
-    public static function checkInfo($name)
+    public static function checkInfo($email, $name)
     {
-        return Admin_Business_User::checkInfo($name);
+        return Admin_Business_User::checkInfo($email, $name);
     }
 
     public static function setNewUser($name, $email, $phone, $pass, $role)

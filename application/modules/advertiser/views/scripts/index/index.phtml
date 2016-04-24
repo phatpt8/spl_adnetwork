@@ -26,7 +26,7 @@
                 <td> <?php echo $banner["BannerId"]; ?> </td>
                 <td> <?php $bInfo = json_decode($banner["BannerInfo"]); ?>
                     <div class="widget-creative-eclick" style="width:125px;">
-                        <img class="widget-thumbnail" src="<?php echo $bInfo->file; ?>">
+                        <img class="widget-thumbnail" src="<?php echo urldecode($bInfo->file); ?>">
                     </div>
                 </td>
                 <td> <?php echo $banner["BannerFormat"] == '202' ? 'Html5 Video' : 'Image'; ?> </td>
@@ -34,10 +34,10 @@
                 <td> <?php echo $banner["BannerMethod"] == '2' ? 'CPM' : 'CPC'; ?> </td>
                 <td> <?php echo $banner["BannerPrice"]; ?> VND</td>
                 <td class="text-left">
-                    Title: <div class="txt_bold"> <?php echo $bInfo->title; ?></div>
+                    Title: <div class="txt_bold"> <?php echo urldecode($bInfo->title); ?></div>
                     Url: <div class="txt_email"> <?php echo $bInfo->url; ?></div>
                     <?php if ($banner["BannerFormat"] == 202){ ?>
-                        Media File: <div class="txt_email"> <?php echo $bInfo->mediaFile; ?></div>
+                        Media File: <div class="txt_email"> <?php echo urldecode($bInfo->mediaFile); ?></div>
                     <?php } ?>
                 </td>
                 <td> <?php echo ($banner["BannerStatus"] == "1" ? '<span class="label label-warning"> Pending</span>' : ($banner["BannerStatus"] == "2" ? '<span class="label label-success"> Approved</span>' : '<span class="label label-default"> Inactive</span>')); ?></td>

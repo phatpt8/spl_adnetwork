@@ -26,7 +26,7 @@
                 <td> <?php echo $zone["ZoneId"]; ?> </td>
                 <td> <?php echo $zone["ZoneName"]; ?> </td>
                 <td> <?php $date=date_create($zone["ZoneCreateTimestamp"]); echo date_format($date, 'd/m/Y H:i:s'); ?> </td>
-                <td> <?php echo $zone["ZoneFormat"]; ?> </td>
+                <td> <?php echo $zone["ZoneFormat"] == '202' ? 'Html5 Video' : 'Image Ad'; ?> </td>
                 <td> <?php echo $zone["ZoneWidth"]; ?> </td>
                 <td> <?php echo $zone["ZoneHeight"]; ?> </td>
                 <td> <a href="" data-zone-id="<?php echo $zone["ZoneId"]; ?>" data-zone-width="<?php echo $zone["ZoneWidth"]; ?>" data-zone-height="<?php echo $zone["ZoneHeight"]; ?>" data-toggle="modal" data-target="#getcodeModal" class="btn btn-default btn-get-embed-code">Get code</a> </td>
@@ -59,7 +59,7 @@
                 <h4 class="modal-title">Copy scripts onto website to play ads</h4>
             </div>
             <div class="modal-body">
-                To <code> &lt;head&gt; </code> tag:
+                To <code> &lt;head&gt; </code> tag, only need one:
                 <br>
                 <code>
                     &lt;script src="http://localhost/spl_adnetwork/static/js/embed/js/adsbyphamtrongphat.js" async=""&gt;&lt;/script&gt;

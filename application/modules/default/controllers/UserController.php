@@ -104,17 +104,10 @@ class UserController extends Zend_Controller_Action{
                 if (trim($newpass) != trim($confirmpass)) {
                     $this->redirect(SITE_URL . '/user/forgotpass?status=confirmFailed');
                 } else {
-                    $canChangePass = false;
-                    $hasEmail = Admin_Model_User::checkEmail($email);
-                    if ($hasEmail > 0) {
-                        $hasInfo = Admin_Model_User::checkInfo($name);
-                        if ($hasInfo > 0) {
-                            $canChangePass = true;
-                        }
-                    }
+                    $hasInfo = Admin_Model_User::checkInfo($email, $name);
 
-                    if ($canChangePass) {
-                        $result = Admin_Model_User::updateUserPass($email, $newpass);
+                    if ($hasInfo > 0) {
+                        $result = Admin_Model_User::updateUserPass($id, $newpass);
                         if ($result) {
                             $this->redirect(SITE_URL . '/user/login?status=updatepasssuccess');
                         } else {

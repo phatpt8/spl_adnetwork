@@ -214,7 +214,7 @@
         var banner = p.banners[0];
         var info = getBannerInfo(banner.BannerInfo);
         var clkLink = psplAdrequest + "/clickad?";
-console.log("p", p);
+
         var clk = [];
         clk.push(p.zoneId ? "zid=" + p.zoneId : "");
         clk.push(banner.BannerId ? "bid=" + banner.BannerId : "");
@@ -376,7 +376,9 @@ console.log("p", p);
 
     var _stringVideoAd = function(p) {
         var banner = p.banners[0];
+        console.log(banner);
 
+        return;
         var videoAd = function() {
             var frame = _topDoc.getElementById(win.pspl_frameId);
             var data = p;
@@ -539,7 +541,7 @@ console.log("p", p);
         var url = psplAdrequest + '/request?id=' + win.pspl_zone;
         JSONP.get(url, {}, function (resp) {
             if (resp.INVALID) {
-                console.log("Zone invalid");
+                return false;
             }
 
             renderPspl(resp);

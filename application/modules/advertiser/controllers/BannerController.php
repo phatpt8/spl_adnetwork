@@ -90,11 +90,14 @@ class Advertiser_BannerController extends Zend_Controller_Action{
                     }
                 }
 
+                $encodeImgUrl = urlencode(trim($image) != '' ? $image : $imageUrl);
+                $encodeMediaUrl = urlencode(trim($mediaFile) != '' ? $mediaFile : $mediaUrl);
+
                 $info = array(
                     'title' => $title,
-                    'file' => isset($imageUrl) ? $imageUrl : "",
+                    'file' => $encodeImgUrl,
                     'url' => $clickUrl,
-                    'mediaFile' =>  trim($mediaFile) != '' ? $mediaFile : isset($mediaUrl) ? $mediaUrl : ""
+                    'mediaFile' => $encodeMediaUrl
                 );
 
                 $strInfo = json_encode($info);
@@ -197,9 +200,10 @@ class Advertiser_BannerController extends Zend_Controller_Action{
                                 $upload->addFilter('Rename', ROOT_PATH . $uploadMp4Path . $mediaUniqueName);
                                 $mediaUrl = UPLOADED_MEDIA_URL .  $mediaUniqueName;
                             }
+                            sleep(4);
                             if ($upload->receive($file)) {
                                 try {
-                                    echo $file;
+
                                 } catch(Zend_File_Transfer_Exception $e) {
                                     $this->redirect(SITE_URL . '/advertiser/index?err=uploadFailed' . 'Bad data: '.$e->getMessage());
                                 }
@@ -210,18 +214,20 @@ class Advertiser_BannerController extends Zend_Controller_Action{
                     }
                 }
 
+                $encodeImgUrl = urlencode(trim($image) != '' ? $image : $imageUrl);
+                $encodeMediaUrl = urlencode(trim($mediaFile) != '' ? $mediaFile : $mediaUrl);
+
                 $info = array(
                     'title' => $title,
-                    'file' => trim($image) != '' ? $image : $imageUrl,
+                    'file' => $encodeImgUrl,
                     'url' => $clickUrl,
-                    'mediaFile' =>  trim($mediaFile) != '' ? $mediaFile : $mediaUrl
+                    'mediaFile' => $encodeMediaUrl
                 );
 
                 $strInfo = json_encode($info);
 
                 $result = Admin_Model_Banner::updateBannerInfo($bannerId, $price, $format, $width, $height, $method, $strInfo, $id);
                 if ($result == "1") {
-                    sleep(3);
                     $this->redirect(SITE_URL . '/advertiser/index?status=editSuccess');
                 } else {
                     $this->redirect(SITE_URL . '/advertiser/index?err=editFailed');
