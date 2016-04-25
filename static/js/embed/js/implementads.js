@@ -92,9 +92,15 @@
         return (element.addEventListener ? (element.addEventListener(event, handler, d || false), true) : element.attachEvent ?
             (element.attachEvent("on" + event, handler), true) : false);
     };
+
     var removeEvent = function (element, event, handler, d) { /* remove event listener */
         return (element.removeEventListener ? (element.removeEventListener(event, handler, d || false), true) : element.detachEvent ?
             (element.detachEvent("on" + event, handler), true) : false);
+    };
+
+    var terminateElement = function (elm) {
+        return elm &&
+        elm.parentNode ? elm.parentNode.removeChild(elm) : null
     };
 
     var _parent = window.parent || window;
@@ -528,6 +534,11 @@
             elem;
         elemId && (elem = _topWin.document.getElementById(elemId));
 
+        if (data.INVALID) {
+            terminateElement(elem);
+            return false;
+        }
+
         var pspl = {};
         parseObj(psplObjectKeyword, function(val, key) {
             pspl[val] = win[key];
@@ -538,10 +549,6 @@
     function init() {
         var url = psplAdrequest + '/request?id=' + win.pspl_zone;
         JSONP.get(url, {}, function (resp) {
-            if (resp.INVALID) {
-                return false;
-            }
-
             renderPspl(resp);
             closeFrameDocument(win);
         })
