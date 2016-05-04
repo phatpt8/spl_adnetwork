@@ -124,12 +124,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserId`, `UserName`, `UserEmail`, `UserPhone`, `UserPassword`, `UserRole`, `UserStatus`, `UserBalance`) VALUES
-  (1, 'SuperAdmin', 'SuperAdmin@spl.com', '01231234432', '123', 1, 1, 1000000),
-  (2, 'AdminPhat', 'Admin@yahoo.com', '01231234432', '123', 1, 1, 0),
-  (3, 'PubPhat', 'PubPhat@yahoo.com', '01231234432', '123', 2, 1, 0),
-  (4, 'PubPhatInactive', 'PubPhatInactive@yahoo.com', '01231234432', '123', 2, 0, 0),
-  (5, 'AdvPhat', 'AdvPhat@yahoo.com', '01231234432', '123', 3, 1, 1000000),
-  (6, 'AdvPhatInactive', 'AdvPhatInactive@yahoo.com', '01231234432', '123', 3, 0, 0);
+  (1, 'SuperAdmin', 'SuperAdmin@spl.com', '0909116060', '123456', 1, 1, 1000000),
+  (2, 'Admin Phat', 'Admin@spl.com', '0909116060', '123456', 1, 1, 0),
+  (3, 'Publisher Phat', 'Publisher@gmail.com', '0909116060', '123456', 2, 1, 0),
+  (4, 'Pub Inactive', 'PubPhatInactive@gmail.com', '0909116060', '123456', 2, 0, 0),
+  (5, 'Advertiser Phat', 'Advertiser@gmail.com', '0909116060', '123456', 3, 1, 0),
+  (6, 'Adv Inactive', 'AdvertiserInactive@gmail.com', '0909116060', '123456', 3, 0, 0);
 -- --------------------------------------------------------
 
 --
