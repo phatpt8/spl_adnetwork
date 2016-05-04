@@ -21,15 +21,14 @@ SET time_zone = "+00:00";
 -- Database: `adnetwork`
 --
 
+CREATE DATABASE IF NOT EXISTS adnetwork;
+USE adnetwork;
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `banner`
 --
-
-CREATE DATABASE IF NOT EXISTS adnetwork;
-USE adnetwork;
-
 
 CREATE TABLE `banner` (
   `BannerId` int(11) NOT NULL,
